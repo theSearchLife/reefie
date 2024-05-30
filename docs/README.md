@@ -16,6 +16,10 @@ USB serial permissions
 
 if USB device not found remove "apt remove brltty"
 
+Depending on IDE need to manually configure to download mode \
+\
+Configure EZO probes to I2C mode
+
 ## Development notes
 
 ### I2C addresses
