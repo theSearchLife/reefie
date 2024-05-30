@@ -8,17 +8,15 @@ To pull CAD files install git LFS [https://git-lfs.com/](https://git-lfs.com/)
 
 ## BOM
 
-
-
 ### Custom cables
 
-command for generating image from main dir 
-wireviz -f p -o docs/.gitbook/assets/ Hardware/analog_harness.yaml 
+command for generating image from main dir
+
+```
+wireviz -f p -o docs/.gitbook/assets/ Hardware/analog_harness.yaml
+```
+
 <figure><img src=".gitbook/assets/analog_harness.png" alt=""><figcaption></figcaption></figure>
-
-
-
-
 
 ## Firmware setup
 
@@ -30,7 +28,7 @@ USB serial permissions
 
 if USB device not found remove "apt remove brltty"
 
-Depending on IDE need to manually configure to download mode \
+Depending on IDE need to manually configure to download mode\
 \
 Configure EZO probes to I2C mode
 
@@ -38,14 +36,12 @@ Configure EZO probes to I2C mode
 
 ### I2C addresses
 
-* 0x36 - MAX17048  - Fuel Gauge, Battery monitoring (on dev board)
-* 0x48 - ADS1115  - ADC
+* 0x36 - MAX17048 - Fuel Gauge, Battery monitoring (on dev board)
+* 0x48 - ADS1115 - ADC
 * 0x49 - ADS1115 - (If A0/Addrees pin Soldered to HIGH) - ADC
 * 0x64 - EZO-EC - Embedded Conductivity Circuit
 * 0x66 - EZO-RTD Embedded Temperature Circuit
 * 0x76 - MS5803-14BA - Pressure sensor
-
-
 
 Can use Adafruit TestBed > I2CScan example to test/detect all I2C devices. [https://learn.adafruit.com/scanning-i2c-addresses/arduino-using-testbed](https://learn.adafruit.com/scanning-i2c-addresses/arduino-using-testbed)
 
@@ -85,8 +81,8 @@ Can use Adafruit TestBed > I2CScan example to test/detect all I2C devices. [http
 
 <summary>Gravity: Analog Turbidity Sensor for Arduino</summary>
 
-* DFRobot  [https://www.dfrobot.com/product-1394.html](https://www.dfrobot.com/product-1394.html)
-* DFRobot wiki  [https://wiki.dfrobot.com/Turbidity\_sensor\_SKU\_\_SEN0189](https://wiki.dfrobot.com/Turbidity\_sensor\_SKU\_\_SEN0189)
+* DFRobot [https://www.dfrobot.com/product-1394.html](https://www.dfrobot.com/product-1394.html)
+* DFRobot wiki [https://wiki.dfrobot.com/Turbidity\_sensor\_SKU\_\_SEN0189](https://wiki.dfrobot.com/Turbidity\_sensor\_SKU\_\_SEN0189)
 * Sensor [https://dfimg.dfrobot.com/nobody/wiki/8e585d98aafe2bab22be39c5b68165c5.pdf](https://dfimg.dfrobot.com/nobody/wiki/8e585d98aafe2bab22be39c5b68165c5.pdf)
 * Schematic [https://github.com/Arduinolibrary/DFRobot\_Turbidity\_sensor/blob/master/SEN0189%20Turbidity%20sensor%28V1.0%29%20schematic.pdf](https://github.com/Arduinolibrary/DFRobot\_Turbidity\_sensor/blob/master/SEN0189%20Turbidity%20sensor\(V1.0\)%20schematic.pdf)
 * Probe [https://raw.githubusercontent.com/Arduinolibrary/DFRobot\_Turbidity\_sensor/master/Probe\_Dimension.png](https://raw.githubusercontent.com/Arduinolibrary/DFRobot\_Turbidity\_sensor/master/Probe\_Dimension.png)
@@ -135,7 +131,7 @@ Can use Adafruit TestBed > I2CScan example to test/detect all I2C devices. [http
 
 * AtlasScientific [https://atlas-scientific.com/kits/mini-conductivity-k-1-0-kit/](https://atlas-scientific.com/kits/mini-conductivity-k-1-0-kit/)
 * EZO™ Conductivity Circuit Datasheet [https://files.atlas-scientific.com/EC\_EZO\_Datasheet.pdf](https://files.atlas-scientific.com/EC\_EZO\_Datasheet.pdf)
-* Mini Conductivity Probe K 1.0 Datasheet  [https://files.atlas-scientific.com/Mini\_EC\_K\_1.0\_probe.pdf](https://files.atlas-scientific.com/Mini\_EC\_K\_1.0\_probe.pdf)
+* Mini Conductivity Probe K 1.0 Datasheet [https://files.atlas-scientific.com/Mini\_EC\_K\_1.0\_probe.pdf](https://files.atlas-scientific.com/Mini\_EC\_K\_1.0\_probe.pdf)
 * Electrically Isolated EZO™ Carrier Board Datasheet [https://files.atlas-scientific.com/electrically-isolated-ezo-carrier-board.pdf](https://files.atlas-scientific.com/electrically-isolated-ezo-carrier-board.pdf)
 * EZO™ Conductivity Accuracy Graph [https://files.atlas-scientific.com/conductivity\_accuracy\_graph.pdf](https://files.atlas-scientific.com/conductivity\_accuracy\_graph.pdf)
 * Wiring Diagram [https://files.atlas-scientific.com/ezo-ec-wiringdiagram.pdf](https://files.atlas-scientific.com/ezo-ec-wiringdiagram.pdf)
