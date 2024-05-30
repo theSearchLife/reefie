@@ -23,8 +23,11 @@ if USB device not found remove "apt remove brltty"
 * 0x36 - MAX17048  - Fuel Gauge, Battery monitoring (on dev board)
 * 0x48 - ADS1115  - ADC
 * 0x49 - ADS1115 - (If A0/Addrees pin Soldered to HIGH) - ADC
+* 0x64 - EZO-EC - Embedded Conductivity Circuit
+* 0x66 - EZO-RTD Embedded Temperature Circuit
 * 0x76 - MS5803-14BA - Pressure sensor
-*
+
+
 
 Can use Adafruit TestBed > I2CScan example to test/detect all I2C devices. [https://learn.adafruit.com/scanning-i2c-addresses/arduino-using-testbed](https://learn.adafruit.com/scanning-i2c-addresses/arduino-using-testbed)
 
@@ -137,5 +140,29 @@ Can use Adafruit TestBed > I2CScan example to test/detect all I2C devices. [http
 * Dissolved Oxygen | Common Mistakes | Damaged Membrane [https://youtu.be/PiXnvrTnVjs](https://youtu.be/PiXnvrTnVjs)
 * Dissolved Oxygen Calculator [https://atlas-scientific.com/dissolved-oxygen-calculator](https://atlas-scientific.com/dissolved-oxygen-calculator)
 * Arduino Sample Code [https://files.atlas-scientific.com/surveyor-DO-ardunio-code.pdf](https://files.atlas-scientific.com/surveyor-DO-ardunio-code.pdf)
+
+</details>
+
+<details>
+
+<summary>Surveyor™ Analog pH Kit</summary>
+
+* AtlastScientific [https://atlas-scientific.com/kits/surveyor-analog-ph-kit/](https://atlas-scientific.com/kits/surveyor-analog-ph-kit/)
+* Surveyor™ Analog pH Sensor / Meter Datasheet [https://files.atlas-scientific.com/Surveyor-pH-datasheet.pdf](https://files.atlas-scientific.com/Surveyor-pH-datasheet.pdf)
+* Consumer Grade pH Probe Datasheet [https://files.atlas-scientific.com/consumer-grade-pH-probe.pdf](https://files.atlas-scientific.com/consumer-grade-pH-probe.pdf)
+* pH Temperature Compensation Calculator [https://atlas-scientific.com/ph-temperature-calculator/](https://atlas-scientific.com/ph-temperature-calculator/)
+* Arduino Sample Code [https://files.atlas-scientific.com/surveyor-pH-ardunio-code.pdf](https://files.atlas-scientific.com/surveyor-pH-ardunio-code.pdf)
+*
+
+</details>
+
+<details>
+
+<summary>Surveyor™ Analog Isolator</summary>
+
+* AtlasScientific [https://atlas-scientific.com/carrier-boards/surveyor-analog-isolator/](https://atlas-scientific.com/carrier-boards/surveyor-analog-isolator/)
+* Surveyor™ Analog Isolator Datasheet [https://files.atlas-scientific.com/Surveyor\_analog\_isolator\_datasheet.pdf](https://files.atlas-scientific.com/Surveyor\_analog\_isolator\_datasheet.pdf)
+* Arduino Sample Code [https://files.atlas-scientific.com/atlas\_surveyor.zip](https://files.atlas-scientific.com/atlas\_surveyor.zip)
+* Surveyor™ Analog Isolator 3D model (\*step) [https://files.atlas-scientific.com/ISO-Gravity.zip](https://files.atlas-scientific.com/ISO-Gravity.zip)
 
 </details>
