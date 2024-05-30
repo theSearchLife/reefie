@@ -19,6 +19,10 @@
 
 #define QWIIC_POWER_PIN 0
 
+//ADS1115 Analog channel selection
+#define TURBIDITY_PIN   0
+#define DO_PIN          1
+
 //I2C addresses
 #define ADDR_MAX17048   0x36
 #define ADDR_ADS1115_1  0x48

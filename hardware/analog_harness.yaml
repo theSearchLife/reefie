@@ -42,10 +42,12 @@ cables:
     wirecount: 3
     length: 0.1
     colors: [RD, BK, WH]
+    category: bundle
   W3:
     wirecount: 3
     length: 0.1
     colors: [BK,RD,WH]
+    category: bundle
   W4: &template_i2c
     wirecount: 4
     length: 0.1
