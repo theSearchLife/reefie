@@ -1,6 +1,14 @@
 # Description
 
+##
+
+##
+
+To pull CAD files install git LFS [https://git-lfs.com/](https://git-lfs.com/)
+
 ## BOM
+
+
 
 
 
