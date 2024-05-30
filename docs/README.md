@@ -13,7 +13,7 @@ To pull CAD files install git LFS [https://git-lfs.com/](https://git-lfs.com/)
 command for generating image from main dir
 
 ```
-wireviz -f p -o docs/.gitbook/assets/ Hardware/analog_harness.yaml
+wireviz -f p -o docs/.gitbook/assets/ hardware/analog_harness.yaml
 ```
 
 <figure><img src=".gitbook/assets/analog_harness.png" alt=""><figcaption></figcaption></figure>
