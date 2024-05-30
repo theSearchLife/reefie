@@ -1,0 +1,76 @@
+connectors:
+  X1: &template_HARWIN
+    type: HARWIN M20
+    subtype: female
+    pinlabels: [A+, A3, A2, A1, A0, A-]
+    notes: ADS1115 ADC
+  X3:
+    type: JST-PH
+    subtype: female
+    pinlabels: [Sensor_out,VCC,GND]
+    notes: Turbidity sensor
+  X4:
+    <<: *template_HARWIN
+    pinlabels: [GND, 3.3V, Analog]
+    notes: Surveyor DO meter
+  X5: &template_qwiic
+    type: HARWIN M20
+    subtype: female
+    pinlabels: [GND, 3.3V, SDA,SCL]
+    notes: qwiic I2C adapter
+  X6:
+    <<: *template_HARWIN
+    pinlabels: [VCC,N/C,GND,TX,RX]
+    notes: RTD Non-isolated EZO
+  X7:
+    <<: *template_qwiic
+  X8:
+    <<: *template_HARWIN
+    pinlabels: [VCC,N/C,GND,TX,RX]
+    notes: EC isolated EZO
+  F1: &template_ferrule
+    style: simple
+    type: Crimp ferrule
+    subtype: 22AWG
+    color: BK
+    notes: 5V power converter
+  F2:
+    <<: *template_ferrule
+    color: RD
+cables:
+  W1:
+    wirecount: 3
+    length: 0.1
+    colors: [RD, BK, WH]
+  W3:
+    wirecount: 3
+    length: 0.1
+    colors: [BK,RD,WH]
+  W4: &template_i2c
+    wirecount: 4
+    length: 0.1
+    colors: [RD,BK,WH,GN]
+  W5:
+    <<: *template_i2c
+
+connections:
+  -
+    - X1: [A0]
+    - W1: [3]
+    - X3: [1]
+  -
+    - [F2, F1]
+    - W1: [1-2]
+    - X3: [2,3]
+  -
+    - X1: [A-,A+,A1]
+    - W3: [1-3]
+    - X4: [1-3]
+  -
+    - X5: [3.3V, GND, SDA, SCL]
+    - W4: [1-4]
+    - X6: [VCC, GND,TX,RX]
+  -
+    - X7: [3.3V, GND, SDA, SCL]
+    - W5: [1-4]
+    - X8: [VCC, GND,TX,RX]
