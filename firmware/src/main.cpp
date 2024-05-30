@@ -1,9 +1,9 @@
 #include <Arduino.h>
 #include <SD.h>
 #include <SPI.h>
+// #include "FS.h" // To be used for more complex file managing
 
-// Pin Definitions
-#define SD_CS_PIN 5
+#include "ap_config.h"
 
 // Global Variables
 File dataFile;
@@ -11,17 +11,17 @@ String fileName;
 int fileIndex = 0;
 
 // Function Declarations
+// SD Card functions
 bool initializeSDCard();
 String generateFileName();
 void createNewFile(const String &name);
 void appendDataToFile(const String &name);
 
 void setup() {
-  Serial.begin(115200);
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB
-  }
+  // Start Serial USB logging
+  Serial.begin(SERIAL_BAUD_RATE);
 
+  // Initialize SD card and create new file
   if (initializeSDCard()) {
     fileName = generateFileName();
     createNewFile(fileName);
@@ -30,11 +30,11 @@ void setup() {
 
 void loop() {
   appendDataToFile(fileName);
-  delay(5000); // Wait for 5 seconds before next write
+  delay(LOGGING_DELAY); // Wait for 5 seconds before next write
 }
 
 bool initializeSDCard() {
-  if (!SD.begin(SD_CS_PIN)) {
+  if (!SD.begin(SD_CS)) {
     Serial.println("Card Mount Failed");
     return false;
   }
