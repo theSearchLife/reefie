@@ -10,6 +10,10 @@ To pull CAD files install git LFS [https://git-lfs.com/](https://git-lfs.com/)
 
 
 
+### Custom cables
+
+<figure><img src=".gitbook/assets/analog_harness.png" alt=""><figcaption></figcaption></figure>
+
 
 
 
