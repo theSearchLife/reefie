@@ -6,6 +6,9 @@
 #define LOGGING_DELAY       60000 // 1minute
 #define SERIAL_BAUD_RATE    115200
 
+//Calibration
+#define DO_CALIBRATION      0.583250
+
 //Pinout
 #define SD_SCK  18
 #define SD_MISO 19
@@ -20,8 +23,8 @@
 #define QWIIC_POWER_PIN 0
 
 //ADS1115 Analog channel selection
-#define TURBIDITY_PIN   0
-#define DO_PIN          1
+#define TURBIDITY_PIN   3
+#define DO_PIN          0
 
 //I2C addresses
 #define ADDR_MAX17048   0x36
