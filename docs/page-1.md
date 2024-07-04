@@ -24,6 +24,20 @@ Slicing done with PrusaSlicer [https://www.prusa3d.com/page/prusaslicer\_424/](h
 
 
 
+### Custom cables
+
+command for generating image from main dir
+
+```
+wireviz -f p -o docs/.gitbook/assets/ hardware/analog_harness.yaml
+```
+
+<figure><img src=".gitbook/assets/analog_harness.png" alt=""><figcaption></figcaption></figure>
+
+
+
+
+
 ## Enclosure
 
 

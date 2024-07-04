@@ -1,6 +1,6 @@
 # Table of contents
 
 * [Description](README.md)
-  * [Table of contents](docs/SUMMARY.md)
+  * [Firmware setup](docs/firmware-setup.md)
   * [Assembly](docs/page-1.md)
 * [Usage / Maintenance](usage-maintenance.md)
