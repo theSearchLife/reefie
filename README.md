@@ -40,6 +40,47 @@ Depending on IDE need to manually configure to download mode\
 \
 Configure EZO probes to I2C mode
 
+### Programming RTC
+
+{% embed url="https://learn.adafruit.com/adafruit-ds3231-precision-rtc-breakout/arduino-usage" %}
+
+Time set to UTC. As in the example compiling device timezone was UTC+2, therefore subtracted 7200 seconds to stre UTC 0.
+
+````arduino
+```cpp
+
+// Date and time functions using a DS3231 RTC connected via I2C and Wire lib
+#include "RTClib.h"
+
+RTC_DS3231 rtc;
+
+void setup () {
+  Serial.begin(115200);
+
+
+  if (! rtc.begin()) {
+    Serial.println("Couldn't find RTC");
+    Serial.flush();
+    while (1) delay(10);
+  }
+
+   if (rtc.lostPower()) {
+     Serial.println("RTC lost power, let's set the time!");
+     // When time needs to be set on a new device, or after a power loss, the
+     // following line sets the RTC to the date & time this sketch was compiled
+     // Get compile time
+    DateTime compileTime(F(__DATE__), F(__TIME__));
+    // Subtract 2 hours (7200 seconds)
+    DateTime adjustedTime = compileTime - TimeSpan(7200);
+    // Adjust the RTC time
+    rtc.adjust(adjustedTime);
+}
+
+void loop () {
+}
+```
+````
+
 ## Development notes
 
 ### I2C addresses
