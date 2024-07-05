@@ -2,13 +2,12 @@
 
 ## Firmware setup
 
-VS Code
+### IDE setup
 
-PlatformIO with dependencies
-
-USB serial permissions
-
-if USB device not found remove "apt remove brltty"
+1. Install Visual Studio code - [https://code.visualstudio.com/](https://code.visualstudio.com/)
+2. Setup PlatformIO with dependencies as VSCode extension [https://platformio.org/install/ide?install=vscode](https://platformio.org/install/ide?install=vscode)
+3. USB permissions
+4. (Optional) if USB device not found remove "apt remove brltty"
 
 Depending on IDE need to manually configure to download mode\
 \
