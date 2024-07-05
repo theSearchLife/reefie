@@ -11,6 +11,7 @@
 #include <sequencer3.h> //imports a 3 function sequencer
 #include <Ezo_i2c_util.h> //brings in common print statements
 #include <SparkFun_MS5803_I2C.h> // Click here to get the library: http://librarymanager/All#SparkFun_MS5803-14BA
+#include "RTClib.h" // Date and time functions using a DS3231 RTC connected via I2C and Wire lib
 
 
 #define HEADER "time,temperature,do_adc,do_volt,do_saturation,turb_adc,turb_volt,turb_ntu,conductivity,tds,salinity,specific_gravity\n"
@@ -20,6 +21,11 @@
 File dataFile;
 String fileName;
 int fileIndex = 0;
+RTC_DS3231 rtc;
+
+char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+
+
 
 MS5803 sensor(ADDRESS_HIGH); // Instantiate the sensor using ADDRESS_HIGH
 Adafruit_ADS1115 ads;  /* Use this for the 16-bit version */
@@ -39,8 +45,8 @@ float SAL_float;                 //float var used to hold the float value of the
 float SG_float;                 //float var used to hold the float value of the specific gravity.
 float RTD_temp;
 
-const int numLog = 13;
-String dataNames[numLog] = {"time", "temperature", "do_volt", "do_saturation", "turb_volt", 
+const int numLog = 14;
+String dataNames[numLog] = {"unix_timestamp", "human_timestamp", "temperature", "do_volt", "do_saturation", "turb_volt", 
                                   "turb_ntu", "conductivity", "tds", "salinity", "specific_gravity", 
                                   "pressure_abs", "pressure_relative", "altitude_delta"};
 
@@ -48,6 +54,7 @@ String dataNames[numLog] = {"time", "temperature", "do_volt", "do_saturation", "
 // SD Card functions
 bool initializeSDCard();
 String generateFileName();
+void createBaseDirectory();
 void createNewFile(const String &name);
 void appendDataToFile(const String &name);
 void writeHeader(const String &name);
@@ -69,7 +76,6 @@ Sequencer3 Seq( &step1, 815, //calls the steps in sequence with time in between 
 void voltageToTurbidity(float* voltage, float* turbidity);
 float doSaturation(float calibration, float reading);
 
-
 int16_t turbidity_adc, do_adc, ref_adc;
 float turbidity_volts, do_volts, turbidity, ref_volt;
 float do_saturation;
@@ -88,8 +94,26 @@ void setup() {
 
   Wire.begin();
 
+  if (!rtc.begin()) {
+    Serial.println("Couldn't find RTC");
+    Serial.flush();
+    while (1) delay(10);
+  }
+
+  if (rtc.lostPower()){
+    // Get compile time
+    DateTime compileTime(F(__DATE__), F(__TIME__));
+
+    // Subtract 2 hours (7200 seconds) to adjust to UTC 0 timezone
+    DateTime adjustedTime = compileTime - TimeSpan(7200);
+
+    // Adjust the RTC time
+    rtc.adjust(adjustedTime);
+  }
+
   // Initialize SD card and create new file
   if (initializeSDCard()) {
+    createBaseDirectory();
     fileName = generateFileName();
     createNewFile(fileName);
     writeHeader(fileName);
@@ -130,7 +154,17 @@ void loop() {
   ads.setGain(GAIN_FOUR);        // 1x gain   +/- 4.096V  1 bit = 2mV      0.125mV
   float multiplier = 0.0625F;
   // ads.setGain(GAIN_TWOTHIRDS);  // 2/3x gain +/- 6.144V  1 bit = 3mV      0.1875mV (default)
-  turbidity_adc = ads.readADC_Differential_2_3();
+  // turbidity_adc = ads.readADC_Differential_2_3();
+
+  // Function to average sensor values
+  int numSamples = 100;
+  int sum = 0.0;
+  for (int i = 0; i < numSamples; i++) {
+      sum += ads.readADC_Differential_2_3();
+  }
+  turbidity_adc =  sum / numSamples;
+
+
   // turbidity_adc = ads.readADC_SingleEnded(2);
   // turbidity_volts = turbidity_adc * multiplier/1000;
   turbidity_volts = ads.computeVolts(turbidity_adc);
@@ -183,10 +217,45 @@ bool initializeSDCard() {
   return true;
 }
 
+String formatDateTime(DateTime dateTime) {
+  char dateTimeString[20]; // Buffer to hold the formatted date and time string
+
+  // Format the date and time
+  snprintf(dateTimeString, sizeof(dateTimeString), "%04d-%02d-%02dT%02d:%02d:%02d",
+           dateTime.year(), dateTime.month(), dateTime.day(),
+           dateTime.hour(), dateTime.minute(), dateTime.second());
+
+  // Convert the C-string to a String object and return it
+  return String(dateTimeString);
+}
+
+void createBaseDirectory(){
+  if (!SD.exists("/data")) {
+    if (!SD.mkdir("/data")) {
+      Serial.println("Failed to create base directory: /data");
+      return;
+    }else{
+      Serial.println("Created base directory: /data");
+    }
+  }else{
+    Serial.println("Base directory exists: /data");
+  }
+}
+
 String generateFileName() {
   String name;
+  DateTime time_now = rtc.now();
+  char folderName[11];
+  char fileName[23];
+
   while (true) {
-    name = "/data" + String(fileIndex) + ".csv";
+    snprintf(folderName, sizeof(folderName), "%04d-%02d-%02d",
+          time_now.year(), time_now.month(), time_now.day());
+    snprintf(fileName, sizeof(fileName), "%04d-%02d-%02d_%02d-%02d_%03d",
+          time_now.year(), time_now.month(), time_now.day(),
+          time_now.hour(), time_now.minute(), fileIndex);
+    name = "/data/" + String(folderName) + "/" + String(fileName) + ".csv";
+
     if (!SD.exists(name)) {
       break;
     }
@@ -196,16 +265,31 @@ String generateFileName() {
 }
 
 void createNewFile(const String &name) {
+  // Extract the directory path
+  int lastSlashIndex = name.lastIndexOf('/');
+  String dirPath = name.substring(0, lastSlashIndex);
+
+  // Check if the directory exists and create it if it doesn't
+  if (!SD.exists(dirPath)) {
+    if (!SD.mkdir(dirPath)) {
+      Serial.println("Failed to create directory: " + dirPath);
+      return;
+    }else{
+      Serial.println("Created directory: " + dirPath);
+    }
+  } else{
+    Serial.println("Directory exists: " + dirPath);
+  }
+
   dataFile = SD.open(name, FILE_WRITE);
   if (!dataFile) {
-    Serial.println("Failed to create file");
+    Serial.println("Failed to create file: " + name);
     return;
   }
-  dataFile.println("Timestamp,Value"); // Write header to the new file
+  dataFile.flush();
   dataFile.close();
   Serial.println("Created file: " + name);
 }
-
 
 // {"time", "temperature", "do_volt", "do_saturation", "turb_volt", 
 //                                   "turb_ntu", "conductivity", "tds", "salinity", "specific_gravity", 
@@ -213,8 +297,12 @@ void createNewFile(const String &name) {
 
 void appendDataToFile(const String &name) {
   dataFile = SD.open(name, FILE_APPEND);
+  DateTime now = rtc.now();
+  String dateTimeString = formatDateTime(now);
+  
   if (dataFile) {
-    dataFile.print(millis());dataFile.print(",");
+    dataFile.print(now.unixtime());dataFile.print(",");
+    dataFile.print(dateTimeString);dataFile.print(",");
     dataFile.print(RTD_temp);dataFile.print(",");
     dataFile.print(do_volts);dataFile.print(",");
     dataFile.print(do_saturation);dataFile.print(",");
@@ -301,7 +389,7 @@ void step3() {
   SAL_float=atof(SAL);
   SG_float=atof(SG);
 
-  Serial.print("Turbidity -");// ADC: "); Serial.print(turbidity_adc);
+  Serial.print("Turbidity -");Serial.print(turbidity_adc);// ADC: "); Serial.print(turbidity_adc);
   Serial.print("  "); Serial.print(volts_sensor,5); Serial.print("V");
   Serial.print("  "); Serial.print(turbidity,4);Serial.print("NTU");
   Serial.print("  Dissolved Oxygen -");// ADC: "); Serial.print(do_adc);
@@ -355,3 +443,5 @@ double altitude(double P, double P0)
 {
   return (44330.0 * (1 - pow(P / P0, 1 / 5.255)));
 }
+
+
