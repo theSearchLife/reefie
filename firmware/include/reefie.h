@@ -85,7 +85,6 @@ public:
     double pressure_abs, pressure_relative, altitude_delta, pressure_baseline;
 
 private:
-    float pressure_baseline;
     File dataFile;
     
     bool initSDCard();
