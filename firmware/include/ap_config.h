@@ -5,6 +5,9 @@
 // General
 #define LOGGING_DELAY       60000 // 1minute
 #define SERIAL_BAUD_RATE    115200
+#define BATTERY_ALARM_TH    20 //%
+#define TIMEZONE_OFFSET     -7200 //In seconds to -2hours
+#define BASELINE_ALTITUDE   384.0
 
 //Calibration
 #define DO_CALIBRATION      0.583250
