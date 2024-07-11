@@ -61,9 +61,18 @@ wireviz -f p -o docs/.gitbook/assets/ hardware/analog_harness.yaml
 
 
 
-
-
 ## Enclosure
 
+### Tube cutting
 
+1. (Optional) 3D print clamps for guiding the hacksaw
+   1. File names-
+      1. TubeCuttingClampRoundA
+      2. TubeCuttingClampRoundB
+      3. TubCuttingHolder
+2. Measure 20cm length
+3. Add guide clamps
+4. Cut
+
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td></td><td><img src="../.gitbook/assets/signal-2024-07-11-144226_002.jpeg" alt=""></td><td></td><td></td></tr><tr><td></td><td><img src="../.gitbook/assets/signal-2024-07-11-144226_003.jpeg" alt=""></td><td></td><td></td></tr><tr><td></td><td><img src="../.gitbook/assets/signal-2024-07-11-144226_004.jpeg" alt=""></td><td></td><td></td></tr><tr><td></td><td></td><td><img src="../.gitbook/assets/signal-2024-07-11-144226_005.jpeg" alt=""></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr></tbody></table>
 
