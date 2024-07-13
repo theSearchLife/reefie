@@ -13,6 +13,8 @@ Depending on IDE need to manually configure to download mode\
 \
 Configure EZO probes to I2C mode
 
+Solder I2C address change on second OLED
+
 
 
 ### Programming RTC
