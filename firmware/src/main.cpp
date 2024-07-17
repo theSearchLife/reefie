@@ -7,6 +7,13 @@ Reefie reefie;
 TimerHandle_t xOneShotTimer;
 bool timerTriggered = false;
 
+// TimerHandle_t xLoggingTimer;
+// bool logTimerTriggered = false;
+
+// void vLogTimerCallback(TimerHandle_t xTimer){
+//   logTimerTriggered = true;
+// }
+
 void vOneShotTimerCallback(TimerHandle_t xTimer){
   timerTriggered = true;
 }
@@ -22,17 +29,12 @@ void setup() {
                                 vOneShotTimerCallback);
 
   reefie.begin(); //Initialize I2C ,RTC, Fuel gauge, SD card
-  reefie.setupLogFile(); //Create Folders and files for writing data.
-  reefie.setupSensors(); // Initialize ADS1115, pressure sensor and EZO boards.
+  // reefie.setupLogFile(); //Create Folders and files for writing data.
+  // reefie.setupSensors(); // Initialize ADS1115, pressure sensor and EZO boards.
+  // reefie.state = STATE_TESTS;
 
 }
 
-  // ads.setGain(GAIN_TWOTHIRDS);  // 2/3x gain +/- 6.144V  1 bit = 3mV      0.1875mV (default)
-  // ads.setGain(GAIN_ONE);        // 1x gain   +/- 4.096V  1 bit = 2mV      0.125mV
-  // ads.setGain(GAIN_TWO);        // 2x gain   +/- 2.048V  1 bit = 1mV      0.0625mV
-  // ads.setGain(GAIN_FOUR);       // 4x gain   +/- 1.024V  1 bit = 0.5mV    0.03125mV
-  // ads.setGain(GAIN_EIGHT);      // 8x gain   +/- 0.512V  1 bit = 0.25mV   0.015625mV
-  // ads.setGain(GAIN_SIXTEEN);    // 16x gain  +/- 0.256V  1 bit = 0.125mV  0.0078125mV
 
 void loop() {
 
@@ -54,6 +56,8 @@ void loop() {
     {
       reefie.printSensorData();
       reefie.appendDataToFile(reefie.fileName);
+      reefie.state = STATE_READ_DATA;
+      delay(LOGGING_DELAY); // Wait for 5 seconds before next write
 
       break;
     }
@@ -61,9 +65,14 @@ void loop() {
     {
       break;
     }
-  }
+    case STATE_TESTS:
+    {
+      Serial.println("Tests");
 
-   delay(LOGGING_DELAY); // Wait for 5 seconds before next write
+      break;
+    }
+  }
+  delay(10);
 }
 
 void readAllData()

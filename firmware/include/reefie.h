@@ -16,11 +16,13 @@
 #include <Ezo_i2c.h> //include the EZO I2C library from https://github.com/Atlas-Scientific/Ezo_I2c_lib
 #include <Ezo_i2c_util.h> //brings in common print statements
 
+
 typedef enum{
     STATE_INIT = 0,
     STATE_READ_DATA,
     STATE_LOG_DATA,
-    STATE_ERROR
+    STATE_ERROR,
+    STATE_TESTS
 } appState_t;
 
 typedef enum{
