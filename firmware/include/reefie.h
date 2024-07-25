@@ -15,12 +15,20 @@
 #include <Adafruit_ADS1X15.h>
 #include <Ezo_i2c.h> //include the EZO I2C library from https://github.com/Atlas-Scientific/Ezo_I2c_lib
 #include <Ezo_i2c_util.h> //brings in common print statements
+#include <U8g2lib.h>
+#include "oled_images.h"
 
+
+typedef struct{
+    bool state_current;
+    bool state_changed;
+}device_state_t;
 
 typedef enum{
     STATE_INIT = 0,
     STATE_READ_DATA,
     STATE_LOG_DATA,
+    STATE_WAITING,
     STATE_ERROR,
     STATE_TESTS
 } appState_t;
@@ -46,6 +54,15 @@ public:
     void readAnalogSensors();
     void readPressureSensor();
     void appendDataToFile(const String &name);
+
+    void displayData();
+    void displayEyesInit();
+    void displayEyesCycle();
+    void displaySDCardError();
+    void displayEyesCycleRandom();
+    void displayUpdateInit();
+
+    bool RTDreadLoop();
 
     int16_t turbidity_adc;
     float turbidity_volts_divided, turbidity_volts, turbidity;
@@ -86,12 +103,29 @@ public:
     float temperature_c, temperature_f;
     double pressure_abs, pressure_relative, altitude_delta, pressure_baseline;
 
+    device_state_t pressure_state;
+    device_state_t fuelgauge_state;
+    device_state_t rtc_state;
+    device_state_t sdCard_state;
+    device_state_t logfile_state;
+    device_state_t ads_state;
+    device_state_t ec_state;
+    device_state_t rtd_state;
+
+    // U8G2_SH1106_128X64_NONAME_1_HW_I2C u8g2_l; //Single page mode
+    // U8G2_SH1106_128X64_NONAME_1_HW_I2C u8g2_r; //Single page mode
+
+    U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2_l; //Full Buffer mode
+    U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2_r; //Full Buffer mode
+    
 private:
     File dataFile;
+
+    int display_cycle;
     
     bool initSDCard();
-    void initRTC();
-    void initFuelGauge();
+    bool initRTC();
+    bool initFuelGauge();
     void createBaseDirectory();
     String generateFileName();
     void createNewFile(const String &name);
@@ -101,6 +135,13 @@ private:
     double sealevel(double P, double A);
     double altitude(double P, double P0);
     String formatDateTime(DateTime dateTime);
+    String formatDateTimeDisplay(DateTime dateTime);
+
+    void displayBothEyes(int index_left, int index_right, int pause);
+
+    bool checkPressureSensor(TwoWire &wirePort);
+    int read_attempts;
+    
 
 };
 

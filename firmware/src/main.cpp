@@ -7,12 +7,12 @@ Reefie reefie;
 TimerHandle_t xOneShotTimer;
 bool timerTriggered = false;
 
-// TimerHandle_t xLoggingTimer;
-// bool logTimerTriggered = false;
+TimerHandle_t xLoggingTimer;
+bool logTimerTriggered = false;
 
-// void vLogTimerCallback(TimerHandle_t xTimer){
-//   logTimerTriggered = true;
-// }
+void vLogTimerCallback(TimerHandle_t xTimer){
+  logTimerTriggered = true;
+}
 
 void vOneShotTimerCallback(TimerHandle_t xTimer){
   timerTriggered = true;
@@ -28,11 +28,28 @@ void setup() {
                                 NULL,
                                 vOneShotTimerCallback);
 
-  reefie.begin(); //Initialize I2C ,RTC, Fuel gauge, SD card
-  // reefie.setupLogFile(); //Create Folders and files for writing data.
-  // reefie.setupSensors(); // Initialize ADS1115, pressure sensor and EZO boards.
-  // reefie.state = STATE_TESTS;
+  xLoggingTimer = xTimerCreate("OneShotTimer", 
+                                pdMS_TO_TICKS(LOGGING_DELAY),
+                                pdTRUE,
+                                NULL,
+                                vLogTimerCallback);
 
+  if(!reefie.begin()){ //Initialize I2C ,RTC, Fuel gauge, SD card, OLED
+    reefie.displaySDCardError();
+    reefie.deepSleepStart();
+  }
+  Serial.println("I2C, OLED, RTC, Fuel gauge, SD card - Initialized");
+  reefie.setupLogFile(); //Create Folders and files for writing data.
+  reefie.displayUpdateInit();
+  Serial.println("Log files initialized");
+  
+  reefie.setupSensors(); // Initialize ADS1115, pressure sensor and EZO boards.
+  Serial.println("ADS1115, pressure sensor, EZO boards initialized");
+  reefie.state = STATE_INIT;
+  delay(2000);
+
+  reefie.displayEyesInit();
+  xTimerStart(xLoggingTimer, 0);
 }
 
 
@@ -50,15 +67,29 @@ void loop() {
     case STATE_READ_DATA:
     {
       readAllData();
+      
       break;
     }
     case STATE_LOG_DATA:
     {
       reefie.printSensorData();
       reefie.appendDataToFile(reefie.fileName);
-      reefie.state = STATE_READ_DATA;
-      delay(LOGGING_DELAY); // Wait for 5 seconds before next write
-
+      reefie.state = STATE_WAITING;
+      reefie.displayData();
+      
+       // Wait for 5 seconds before next write
+      
+      break;
+    }
+    case STATE_WAITING:
+    {
+      if(logTimerTriggered){
+        logTimerTriggered = false;
+        reefie.state = STATE_READ_DATA;
+        reefie.displayEyesCycleRandom();
+        reefie.displayData();
+      }
+      
       break;
     }
     case STATE_ERROR:
@@ -67,6 +98,7 @@ void loop() {
     }
     case STATE_TESTS:
     {
+      
       Serial.println("Tests");
 
       break;
@@ -97,7 +129,8 @@ void readAllData()
           reefie.RTD_temp = reefie.RTD.get_last_received_reading();
           reefie.EC.send_read_with_temp_comp(reefie.RTD_temp);                               //send readings from temp sensor to EC sensor
           
-        } else {                                                                                      //if the temperature reading is invalid
+        } else {
+          reefie.RTDreadLoop();                                                                                      //if the temperature reading is invalid
           reefie.EC.send_read_with_temp_comp(25.0);                                                          //send default temp = 25 deg C to EC sensor
         }
         
@@ -124,7 +157,10 @@ void readAllData()
     {
       reefie.readBattery();
       reefie.readAnalogSensors();
-      reefie.readPressureSensor();
+
+      if(reefie.pressure_state.state_current){
+        reefie.readPressureSensor();
+      }
 
       reefie.readStates = READ_STATE_INIT;
       reefie.state = STATE_LOG_DATA;

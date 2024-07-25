@@ -1,5 +1,6 @@
 #include "reefie.h"
 
+
 const int Reefie::numLog = 16;
 const String Reefie::dataNames[Reefie::numLog] = {
     "unix_timestamp", "human_timestamp", "temperature", "do_volt", "do_saturation", "turb_volt", 
@@ -13,24 +14,52 @@ Reefie::Reefie()
         battery_soc(0),
         battery_alert(false),
         pressure_sensor(ADDRESS_HIGH),
-        EC(Ezo_board(100, "EC")),
-        RTD(Ezo_board(102, "RTD")),
+        EC(Ezo_board(ADDR_EZO_EC, "EC")),
+        RTD(Ezo_board(ADDR_EZO_RTD, "RTD")),
         state(STATE_INIT),
-        readStates(READ_STATE_INIT)
+        readStates(READ_STATE_INIT),
+        u8g2_l(U8G2_R0, /* reset=*/ U8X8_PIN_NONE),
+        u8g2_r(U8G2_R0, /* reset=*/ U8X8_PIN_NONE)
         
 {
+  pressure_state.state_current = false;
+  fuelgauge_state.state_current = false;
+  rtc_state.state_current = false;
+  sdCard_state.state_current = false;
+  logfile_state.state_current = false;
+  ads_state.state_current = false;
+  ec_state.state_current = false;
+  rtd_state.state_current = false;
 
+  display_cycle = 0;
 }
 
 //Public functions
 bool Reefie::begin(){
-    // Start Serial USB logging
-    Serial.begin(SERIAL_BAUD_RATE);
-    Wire.begin();
-    initFuelGauge();
-    initRTC();
-    if(initSDCard()) return true;
-    else return false;
+  // Start Serial USB logging
+  Serial.begin(SERIAL_BAUD_RATE);
+  
+  Wire.begin();
+
+  u8g2_r.setI2CAddress(ADDR_OLED_RIGHT); //Right Screen
+  u8g2_r.begin();
+  u8g2_l.setI2CAddress(ADDR_OLED_LEFT); //Left Screen
+  u8g2_l.begin();
+  u8g2_l.setFont(u8g2_font_ncenB10_tr);
+  u8g2_r.setFont(u8g2_font_ncenB10_tr);
+  displayUpdateInit();
+  if(initFuelGauge()) fuelgauge_state.state_current = true;
+  displayUpdateInit();
+  if(initRTC()) rtc_state.state_current = true;
+  displayUpdateInit();
+
+  if(initSDCard())
+  {
+    sdCard_state.state_current = true;
+    displayUpdateInit();
+    return true;
+  }else return false;
+    
 }
 
 void Reefie::deepSleepStart(){
@@ -53,34 +82,40 @@ bool Reefie::initSDCard(){
   return true;
 }
 
-void Reefie::initRTC(){
-    if (!rtc.begin()) {
+bool Reefie::initRTC(){
+    if (!rtc.begin(&Wire)) {
     Serial.println("Couldn't find RTC");
-    deepSleepStart();
-    }
-    if (rtc.lostPower()){
-        // Get compile time
-        DateTime compileTime(F(__DATE__), F(__TIME__));
-        // Subtract 2 hours (7200 seconds) to adjust to UTC 0 timezone
-        DateTime adjustedTime = compileTime + TimeSpan(TIMEZONE_OFFSET);
-        // Adjust the RTC time
-        rtc.adjust(adjustedTime);
-        Serial.println("RTC power lost, reinitialzied time");
+    return false;
+    }else{
+      if (rtc.lostPower()){
+          // Get compile time
+          DateTime compileTime(F(__DATE__), F(__TIME__));
+          // Subtract 2 hours (7200 seconds) to adjust to UTC 0 timezone
+          DateTime adjustedTime = compileTime + TimeSpan(TIMEZONE_OFFSET);
+          // Adjust the RTC time
+          rtc.adjust(adjustedTime);
+          Serial.println("RTC power lost, reinitialzied time");
+      }
+      return true;
     }
 }
 
-void Reefie::initFuelGauge(){
-    if (lipo.begin() == false){ // Connect to the MAX17043 using the default wire port
-        Serial.println(F("MAX17043 not detected"));
-        deepSleepStart();
-    }
+bool Reefie::initFuelGauge(){
+  if (lipo.begin(Wire) == false){ // Connect to the MAX17043 using the default wire port
+      Serial.println(F("MAX17043 not detected"));
+      // deepSleepStart();
+      return false;
+  }else
+  {
     // Quick start restarts the MAX17043 in hopes of getting a more accurate
     // guess for the SOC.
     lipo.quickStart();
-	// We can set an interrupt to alert when the battery SoC gets too low.
-	// We can alert at anywhere between 1% - 32%:
-	lipo.setThreshold(BATTERY_ALARM_TH); // Set alert threshold to 20%.
+    // We can set an interrupt to alert when the battery SoC gets too low.
+    // We can alert at anywhere between 1% - 32%:
+    lipo.setThreshold(BATTERY_ALARM_TH); // Set alert threshold to 20%.
     Serial.print("Battery alarm Threshold set to: ");Serial.print(BATTERY_ALARM_TH);Serial.println("%");
+    return true;
+  }
 }
 
 void Reefie::setupLogFile(){
@@ -88,19 +123,45 @@ void Reefie::setupLogFile(){
     fileName = generateFileName();
     createNewFile(fileName);
     writeHeader(fileName);
+    logfile_state.state_current = true;
+}
+
+bool Reefie::checkPressureSensor(TwoWire &wirePort) {
+    // Begin communication with the sensor
+    pressure_sensor.begin(Wire, 0x76); // Or, from v1.1.3, we can also do this
+
+    // Attempt to read a coefficient from the sensor's PROM
+    wirePort.beginTransmission(0x76);
+    wirePort.write(CMD_PROM);
+    if (wirePort.endTransmission() != 0) {
+        return false;
+    }
+
+    // Assuming coefficient should not be zero, adjust this check as needed
+    return true;
 }
 
 void Reefie::setupSensors(){
-    pressure_sensor.reset();
+
   // Begin communication with the sensor
-    pressure_sensor.begin(Wire, 0x76); // Or, from v1.1.3, we can also do this
-    pressure_baseline = pressure_sensor.getPressure(ADC_4096);
+    if(checkPressureSensor(Wire))
+    {
+      // pressure_sensor.begin(Wire, 0x76); // Or, from v1.1.3, we can also do this
+      pressure_sensor.reset();
+      pressure_baseline = pressure_sensor.getPressure(ADC_4096);
+      pressure_state.state_current = true;
+    }
+    
+      displayUpdateInit();
 
       if (!ads.begin(ADDR_ADS1115_1, &Wire)) {
       Serial.println("Failed to initialize ADS.");
-      while (1);
+    }else{
+      ads_state.state_current = true;
     }
+    displayUpdateInit();
 
+    Serial.println("Configuring Conductivity sensor");
     EC.send_cmd("k,1.0");        //send command to Set probe type
     delay(300);
     EC.send_cmd("o,ec,1");        //send command to enable EC output
@@ -111,7 +172,38 @@ void Reefie::setupSensors(){
     delay(300);
     EC.send_cmd("o,sg,1");      //send command to enable specific gravity output
     delay(300);
+
+    char receive_buffer[32];                  //buffer used to hold each boards response
     
+
+    Serial.print("Testing EC - ");
+    EC.send_read_cmd();
+    delay(1000);
+    EC.receive_cmd(receive_buffer, 32);   //put the response into the buffer
+    delay(300);
+    if(EC.get_error() == Ezo_board::SUCCESS) ec_state.state_current = true;
+    Serial.println(EC.get_error());
+    displayUpdateInit();
+
+    Serial.print("Testing RTD - ");
+    if(RTDreadLoop()) rtd_state.state_current = true;
+    Serial.println(RTD_temp);
+    displayUpdateInit();
+    
+}
+
+bool Reefie::RTDreadLoop(){
+  read_attempts = 0;
+  bool result = true;
+    do{
+      RTD.send_read_cmd();
+      delay(600);
+      RTD.receive_read_cmd();
+      read_attempts++;
+    }while(RTD.get_error() != Ezo_board::SUCCESS && read_attempts!=RTD_READ_ATTEMPTS);
+    if(read_attempts == RTD_READ_ATTEMPTS) result = false;
+    RTD_temp = RTD.get_last_received_reading();
+    return result;
 }
 
 void Reefie::createBaseDirectory(){
@@ -192,7 +284,9 @@ void Reefie::writeHeader(const String &name)
     dataFile.close();
     Serial.println("Data written to file: " + name);
   } else {
+
     Serial.println("Failed to open file for appending");
+
   } 
 }
 
@@ -339,6 +433,17 @@ String Reefie::formatDateTime(DateTime dateTime) {
   return String(dateTimeString);
 }
 
+String Reefie::formatDateTimeDisplay(DateTime dateTime) {
+  char dateTimeString[20]; // Buffer to hold the formatted date and time string
+
+  // Format the date and time
+  snprintf(dateTimeString, sizeof(dateTimeString), "%04d-%02d-%02d  %02d:%02d",
+           dateTime.year(), dateTime.month(), dateTime.day(),dateTime.hour(), dateTime.minute());
+
+  // Convert the C-string to a String object and return it
+  return String(dateTimeString);
+}
+
 void Reefie::appendDataToFile(const String &name) {
   dataFile = SD.open(name, FILE_APPEND);
   DateTime now = rtc.now();
@@ -366,5 +471,204 @@ void Reefie::appendDataToFile(const String &name) {
     Serial.println("Data written to file: " + name);
   } else {
     Serial.println("Failed to open file for appending");
+    displaySDCardError();
+    deepSleepStart();
   }
+}
+
+void Reefie::displaySDCardError()
+{
+  u8g2_l.clearBuffer();
+  u8g2_l.setCursor(0, 12);
+  u8g2_l.print(F("NO SD CARD"));
+  u8g2_l.setCursor(0, 25);
+  u8g2_l.print(F("ESP32 SLEEPS"));
+  u8g2_l.setCursor(0, 38);
+  u8g2_l.print(F("MANUALY"));
+  u8g2_l.setCursor(0, 51);
+  u8g2_l.print(F("POWER"));
+  u8g2_l.setCursor(0, 63);
+  u8g2_l.print(F("CYCLE"));
+  u8g2_l.sendBuffer();
+
+  u8g2_r.clearBuffer();
+  u8g2_r.sendBuffer();
+}
+
+void Reefie::displayUpdateInit()
+{
+  u8g2_l.clearBuffer();
+
+  u8g2_l.setCursor(0, 12);
+  u8g2_l.print(F("Fuel Gauge"));
+  u8g2_l.setCursor(120, 12);
+  u8g2_l.print(fuelgauge_state.state_current);
+
+  u8g2_l.setCursor(0, 25);
+  u8g2_l.print(F("RTC"));
+  u8g2_l.setCursor(120, 25);
+  u8g2_l.print(rtc_state.state_current);
+
+  if(rtc_state.state_current){
+    DateTime now = rtc.now();
+    String dateTimeString = formatDateTimeDisplay(now);
+    u8g2_l.setCursor(0, 38);
+    u8g2_l.print((dateTimeString));
+  }
+
+  u8g2_l.setCursor(0, 50);
+  u8g2_l.print(F("SD Card"));
+  u8g2_l.setCursor(120, 50);
+  u8g2_l.print(sdCard_state.state_current);
+
+  u8g2_l.setCursor(0, 63);
+  u8g2_l.print(F("Pressure"));
+  u8g2_l.setCursor(120, 63);
+  u8g2_l.print(pressure_state.state_current);
+
+  u8g2_l.sendBuffer();
+
+  u8g2_r.clearBuffer();
+
+  u8g2_r.setCursor(0, 12);
+  u8g2_r.print(F("ADS1115"));
+  u8g2_r.setCursor(120, 12);
+  u8g2_r.print(ads_state.state_current);
+
+  u8g2_r.setCursor(0, 25);
+  u8g2_r.print(F("Conductivity"));
+  u8g2_r.setCursor(120, 25);
+  u8g2_r.print(ec_state.state_current);
+
+  u8g2_r.setCursor(0, 38);
+  u8g2_r.print(F("RTD"));
+  u8g2_r.setCursor(120, 38);
+  u8g2_r.print(rtd_state.state_current);
+
+  u8g2_r.sendBuffer();
+
+  delay(300);
+}
+
+void Reefie::displayData()
+{
+  u8g2_l.clearBuffer();
+  u8g2_l.setCursor(0, 12);
+  u8g2_l.print(F("Turb: "));
+  u8g2_l.print(turbidity_volts);
+  u8g2_l.setCursor(0, 25);
+  u8g2_l.print(F("DO: "));
+  u8g2_l.print(do_saturation);
+  u8g2_l.setCursor(0, 38);
+  u8g2_l.print(F("Temp: "));
+  u8g2_l.print(RTD_temp);
+  u8g2_l.setCursor(0, 51);
+  u8g2_l.print(F("EC: "));
+  u8g2_l.print(EC_str);
+  u8g2_l.setCursor(0, 64);
+  u8g2_l.print(F("TDS: "));
+  u8g2_l.print(TDS);
+  u8g2_l.sendBuffer();
+
+  u8g2_r.clearBuffer();	
+  u8g2_r.setCursor(0, 12);
+  u8g2_r.print(F("SAL: "));
+  u8g2_r.print(SAL);
+  u8g2_r.setCursor(0, 25);
+  u8g2_r.print(F("SG: "));
+  u8g2_r.print(SG);
+  u8g2_r.setCursor(0, 38);
+  u8g2_r.print(F("Pressure: "));
+  u8g2_r.print(pressure_abs);
+  u8g2_r.setCursor(0, 51);
+  u8g2_r.print(F("Depth: "));
+  u8g2_r.print(pressure_abs);
+  u8g2_r.setCursor(0, 64);
+  u8g2_r.print(F("Battery: "));
+  u8g2_r.print(battery_soc);
+  u8g2_r.sendBuffer();
+  
+}
+
+void Reefie::displayBothEyes(int index_left, int index_right, int pause)
+{
+  u8g2_r.clearBuffer();
+  u8g2_r.drawXBM(0,0,128,64,right_eyeallArray[index_right]);
+  u8g2_r.sendBuffer();
+  u8g2_l.clearBuffer();
+  u8g2_l.drawXBM(0,0,128,64,left_eyeallArray[index_left]);
+  u8g2_l.sendBuffer();
+  delay(pause);
+}
+
+void Reefie::displayEyesInit()
+{
+  displayBothEyes(0,0,500);
+  displayBothEyes(6,7,500);
+  displayBothEyes(7,6,500);
+  displayBothEyes(5,5,1000);
+}
+
+void Reefie::displayEyesCycle()
+{
+  displayBothEyes(3,3,500);
+  displayBothEyes(1,1,1000);
+  // displayBothEyes(5,6,500);
+  displayBothEyes(4,4,2000);
+}
+
+void Reefie::displayEyesCycleRandom()
+{
+
+  switch (display_cycle)
+  {
+  case 0:
+    displayBothEyes(6,7,500);
+    displayBothEyes(3,4,500);
+    displayBothEyes(1,1,500);
+    displayBothEyes(0,0,500);
+    break;
+  case 1:
+    displayBothEyes(0,0,500);
+    displayBothEyes(4,3,500);
+    displayBothEyes(1,1,500);
+    displayBothEyes(0,0,500);
+    break;
+  case 2:
+    displayBothEyes(7,6,500);
+    displayBothEyes(6,7,500);
+    displayBothEyes(7,6,500);
+    displayBothEyes(5,5,500);
+    break;
+  case 3:
+    displayBothEyes(0,0,500);
+    displayBothEyes(0,1,500);
+    displayBothEyes(0,0,1000);
+    break;
+  case 4:
+    displayBothEyes(0,0,500);
+    displayBothEyes(0,1,500);
+    displayBothEyes(1,0,500);
+    displayBothEyes(0,0,500);
+    break;
+  case 5:
+    displayBothEyes(0,0,500);
+    displayBothEyes(4,3,500);
+    displayBothEyes(1,1,500);
+    displayBothEyes(0,0,500);
+    break;
+  case 6:
+    displayBothEyes(7,6,500);
+    displayBothEyes(4,3,500);
+    displayBothEyes(1,1,500);
+    displayBothEyes(0,0,500);
+    break;
+  default:
+    displayBothEyes(0,0,500);
+    displayBothEyes(1,1,1000);
+    displayBothEyes(4,3,1000);
+    break;
+  }
+  display_cycle++;
+  if(display_cycle==7) display_cycle = 0;
 }
