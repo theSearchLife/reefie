@@ -63,6 +63,7 @@ Slicing done with PrusaSlicer [https://www.prusa3d.com/page/prusaslicer\_424/](h
 * SMD 0.1uF Capacitor
 * o-ring
 * Flexible Urethane 8800
+  * Syringe to inject liquid inside casing
 
 **Steps**
 
@@ -84,8 +85,21 @@ Slicing done with PrusaSlicer [https://www.prusa3d.com/page/prusaslicer\_424/](h
 * Install o-ring to sensor
 * Clean cable with IPA
 * Insert sensor to casing
+
+![](<../.gitbook/assets/Screenshot from 2024-07-30 17-30-42.png>)
+
 * Mount external casing
-* Fill casing with Urethane
+
+![](<../.gitbook/assets/Screenshot from 2024-07-30 17-31-30.png>)
+
+* Apply tape on the end to prevent leaking
+
+![](<../.gitbook/assets/Screenshot from 2024-07-30 17-31-54.png>)
+
+* Fill casing with Urethane (using syringe)
+
+![](<../.gitbook/assets/Screenshot from 2024-07-30 17-32-18.png>)
+
 * Cure it
 
 
