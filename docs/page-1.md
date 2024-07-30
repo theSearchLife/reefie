@@ -188,6 +188,8 @@ Slicing done with PrusaSlicer [https://www.prusa3d.com/page/prusaslicer\_424/](h
 * Install casing
 * Fill with Urethane
 
+<figure><img src="../.gitbook/assets/signal-2024-07-30-214602.jpeg" alt=""><figcaption></figcaption></figure>
+
 ## Electronics wiring
 
 
