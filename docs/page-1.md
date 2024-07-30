@@ -132,9 +132,18 @@ Slicing done with PrusaSlicer [https://www.prusa3d.com/page/prusaslicer\_424/](h
 * Apply conformal coating
 * Clean cable with IPA
 * Insert sensor to casing
+
+<img src="../.gitbook/assets/Screenshot from 2024-07-30 17-46-16.png" alt="" data-size="original">
+
 * Mount external casing
+* Apply tape to prevent Urethane leaking
+
+<img src="../.gitbook/assets/Screenshot from 2024-07-30 17-48-16.png" alt="" data-size="original">
+
 * Fill casing with Urethane
-* Cure it
+* Cure itdone
+
+<img src="../.gitbook/assets/Screenshot from 2024-07-30 17-48-44.png" alt="" data-size="original">
 
 </details>
 
