@@ -149,9 +149,44 @@ Slicing done with PrusaSlicer [https://www.prusa3d.com/page/prusaslicer\_424/](h
 
 
 
-### Turbidity
+### Turbidity sensor
 
-3D print Casing
+* Sensor [https://www.dfrobot.com/product-1394.html](https://www.dfrobot.com/product-1394.html)
+* 3D print Casing
+  * Turbidity\_Cover
+  * 6 Layer wall
+  * 100% infill
+  * 10mm Brim width
+  * PETG
+
+<figure><img src="../.gitbook/assets/Screenshot from 2024-07-30 17-58-01.png" alt=""><figcaption></figcaption></figure>
+
+* Desolder JST connector
+
+<div>
+
+<figure><img src="../.gitbook/assets/Screenshot from 2024-07-30 19-55-05 (1).png" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/Screenshot from 2024-07-30 19-55-03.png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+* Solder the cable
+  * Red - VCC
+  * Black - GND
+  * Green - Signal
+
+<figure><img src="../.gitbook/assets/Screenshot from 2024-07-30 19-56-50.png" alt=""><figcaption></figcaption></figure>
+
+* Hot Glue the wires to keep them in place
+* Fill hot glue around sensor are to seal it, preventing Urethane filling sensor are
+
+<figure><img src="../.gitbook/assets/Screenshot from 2024-07-30 20-43-11.png" alt=""><figcaption></figcaption></figure>
+
+* Install casing
+* Fill with Urethane
 
 ## Electronics wiring
 
