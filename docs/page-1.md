@@ -45,6 +45,63 @@ Slicing done with PrusaSlicer [https://www.prusa3d.com/page/prusaslicer\_424/](h
 
 
 
+
+
+## Sensors
+
+### Pressure
+
+#### MS583730BA01-50
+
+**Components**
+
+* Sensor [https://www.digikey.it/en/products/detail/te-connectivity-measurement-specialties/MS583730BA01-50/5629501?s=N4IgTCBcDaILIGUCsAOAzAdjQBgEIEFsBGAWiWxAF0BfIA](https://www.digikey.it/en/products/detail/te-connectivity-measurement-specialties/MS583730BA01-50/5629501?s=N4IgTCBcDaILIGUCsAOAzAdjQBgEIEFsBGAWiWxAF0BfIA)
+* 3D printed
+  * MS583730BA01-50-Enclosure\_inner
+  * MS583730BA01-50- Enclosure\_outer
+* Cable&#x20;
+* SMD 0.1uF Capacitor
+* o-ring
+* Flexible Urethane 8800
+
+Steps
+
+1. 3D print
+2. Solder capacitor and cable
+3. Coat solering
+4. Install o-ring to sensor
+5. Clean cable with IPA
+6. Insert sensor to casing
+7. Mount external casing
+8. Fill casing with Urethane
+9. Cure it
+
+#### MS580314BA01-00
+
+Components
+
+* Sensor
+* 3D printed
+  * asd
+  * asd
+* Cable
+* O-ring
+* Flexible Urethane 8800
+
+
+
+
+
+
+
+
+
+3D print casinng
+
+### Turbidity
+
+3D print Casing
+
 ## Electronics wiring
 
 
