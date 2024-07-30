@@ -45,13 +45,13 @@ Slicing done with PrusaSlicer [https://www.prusa3d.com/page/prusaslicer\_424/](h
 
 
 
-
-
 ## Sensors
 
 ### Pressure
 
-#### MS583730BA01-50
+<details>
+
+<summary>MS583730BA01-50</summary>
 
 **Components**
 
@@ -64,39 +64,67 @@ Slicing done with PrusaSlicer [https://www.prusa3d.com/page/prusaslicer\_424/](h
 * o-ring
 * Flexible Urethane 8800
 
-Steps
+**Steps**
 
-1. 3D print
-2. Solder capacitor and cable
-3. Coat solering
-4. Install o-ring to sensor
-5. Clean cable with IPA
-6. Insert sensor to casing
-7. Mount external casing
-8. Fill casing with Urethane
-9. Cure it
+*   3D print
 
-#### MS580314BA01-00
+    * 6 Layer walls
+    * 100% infill
+    * PETG
 
-Components
+    <img src="../.gitbook/assets/Screenshot from 2024-07-30 16-39-47.png" alt="" data-size="original">
+
+<!---->
+
+* Solder capacitor and cable
+
+<img src="../.gitbook/assets/2020_0110_161123_004.JPG" alt="" data-size="original">![](../.gitbook/assets/2020\_0110\_165156\_006.JPG)
+
+* Apply conformal coating on soldering
+* Install o-ring to sensor
+* Clean cable with IPA
+* Insert sensor to casing
+* Mount external casing
+* Fill casing with Urethane
+* Cure it
+
+
+
+</details>
+
+<details>
+
+<summary>MS580314BA01-00</summary>
+
+**Components**
 
 * Sensor
 * 3D printed
-  * asd
-  * asd
+  * MS580314BA01-00-Enclosure\_inner
+  * MS580314BA01-00 - Enclosure\_outer
 * Cable
-* O-ring
 * Flexible Urethane 8800
 
+**Steps**
+
+* 3D print
+  * 6 Layer walls
+  * 100% infill
+  * PETG
+
+<img src="../.gitbook/assets/Screenshot from 2024-07-30 17-22-37.png" alt="" data-size="original">
+
+* Solder capacitor and cable
+* Apply conformal coating
+* Clean cable with IPA
+* Insert sensor to casing
+* Mount external casing
+* Fill casing with Urethane
+* Cure it
+
+</details>
 
 
-
-
-
-
-
-
-3D print casinng
 
 ### Turbidity
 
