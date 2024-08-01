@@ -4,10 +4,6 @@ description: Preparation of sensors
 
 # Sensors
 
-
-
-
-
 ## Pressure
 
 <details>
@@ -17,9 +13,7 @@ description: Preparation of sensors
 **Components**
 
 * Sensor [https://www.digikey.it/en/products/detail/te-connectivity-measurement-specialties/MS583730BA01-50/5629501?s=N4IgTCBcDaILIGUCsAOAzAdjQBgEIEFsBGAWiWxAF0BfIA](https://www.digikey.it/en/products/detail/te-connectivity-measurement-specialties/MS583730BA01-50/5629501?s=N4IgTCBcDaILIGUCsAOAzAdjQBgEIEFsBGAWiWxAF0BfIA)
-* 3D printed
-  * MS583730BA01-50-Enclosure\_inner
-  * MS583730BA01-50- Enclosure\_outer
+* 3D printed casing
 * Cable&#x20;
 * SMD 0.1uF Capacitor
 * o-ring
@@ -28,15 +22,16 @@ description: Preparation of sensors
 
 **Steps**
 
-*   3D print
-
+* 3D print
+  * File name:
+    * MS583730BA01-50-Enclosure\_inner
+    * MS583730BA01-50- Enclosure\_outer
+  * Print settings
     * 6 Layer walls
     * 100% infill
-    * PETG
+  * Material: PETG
 
-    <img src="../.gitbook/assets/Screenshot from 2024-07-30 16-39-47.png" alt="" data-size="original">
-
-<!---->
+<img src="../.gitbook/assets/Screenshot from 2024-07-30 16-39-47.png" alt="" data-size="original">
 
 * Solder capacitor and cable
 
@@ -111,12 +106,13 @@ description: Preparation of sensors
 ## Turbidity sensor
 
 * Sensor [https://www.dfrobot.com/product-1394.html](https://www.dfrobot.com/product-1394.html)
-* 3D print Casing
-  * Turbidity\_Cover
-  * 6 Layer wall
-  * 100% infill
-  * 10mm Brim width
-  * PETG
+* 3D printed Casing
+  * File name: Turbidity\_Cover
+  * Print settings:
+    * 6 Layer wall
+    * 100% infill
+    * 10mm Brim width
+  * Material: PETG
 
 <figure><img src="../.gitbook/assets/Screenshot from 2024-07-30 17-58-01.png" alt=""><figcaption></figcaption></figure>
 
