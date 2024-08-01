@@ -122,9 +122,76 @@ Example, if real inner diamter is 95mm, make flange\_from\_tube to 0.2mm, if rea
     * Width - 20mm
     * Type - Outer and inner brim
 
+### Switch
+
+<figure><img src="../.gitbook/assets/Screenshot from 2024-08-01 14-07-31.png" alt=""><figcaption></figcaption></figure>
+
+* Filename: **SwitchSpring** and **SwitchHolder**, **SwitchHolder Mirror**
+* Material: PETG
+* Default settings for 0.2
+* Infill - 100%
+* Perimeter - 4
+
+<div>
+
+<figure><img src="../.gitbook/assets/Screenshot from 2024-08-01 17-00-10.png" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/Screenshot from 2024-08-01 17-00-07.png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+* Filename: **SwitchLid\_withText**
+* Material: PETG
+* Default settings for 0.2
+* Infill - 100%
+* Perimeter - 4
+* Dual color
+  * Black external
+  * White text and arrows
+
+<figure><img src="../.gitbook/assets/Screenshot from 2024-08-01 17-02-51.png" alt=""><figcaption></figcaption></figure>
+
+* Filename: **Switchslider\_withText**
+* Material: PETG
+* Default settings for 0.2
+* Infill - 100%
+* Perimeter - 4
+* Dual color
+  * White main color
+  * Black text
+
+
+
+##
+
 ## Post-processing
 
+### Cleaning up 3D prints
+
+* Debur any parts with brim
+* Using a sharp chisel remove any parts required support
+* Using a torch lighter remove any stringing if present
+
 ### Heat inserts
+
+Parts tha trequire heat inserts
+
+* 2xFlangeSeal\_Open
+  * 6x top
+  * 6x bottom
+* 2xClamp bottom
+  * 4x sides, insert from the bottom
+  * 2x on 45degree angle, insert from outside
+* 2xClamp top
+  * 3x top
+  * 2x on 45degree angle, insert from outside
+* Sensor mounting plate
+  * 4x sides
+*
+
+
 
 ### Coating
 
