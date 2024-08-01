@@ -19,8 +19,6 @@ Data captured:
 * Specific gravity
 * Pressure
 
-
-
 BOM -&#x20;
 
 Hardware design done in FreeCAD 0.21.2 with Assembly4 workbench  for assembly. [https://github.com/theSearchLife/reefie/tree/main/hardware](https://github.com/theSearchLife/reefie/tree/main/hardware)
@@ -29,29 +27,4 @@ All files for 3D printing at [https://github.com/theSearchLife/reefie/tree/main/
 
 Electronics wiring schematic in KiCAD 7.0 [https://github.com/theSearchLife/reefie/tree/main/hardware](https://github.com/theSearchLife/reefie/tree/main/hardware)
 
-
-
 Firmware overview - diagram
-
-
-
-{% content-ref url="assembly-instructions/firmware-setup.md" %}
-[firmware-setup.md](assembly-instructions/firmware-setup.md)
-{% endcontent-ref %}
-
-{% content-ref url="usage-maintenance.md" %}
-[usage-maintenance.md](usage-maintenance.md)
-{% endcontent-ref %}
-
-{% content-ref url="assembly-instructions/page-1-1.md" %}
-[page-1-1.md](assembly-instructions/page-1-1.md)
-{% endcontent-ref %}
-
-
-
-
-
-
-
-
-
