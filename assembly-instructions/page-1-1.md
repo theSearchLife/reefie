@@ -199,7 +199,51 @@ Parts tha trequire heat inserts
 
 ## Lids cutting
 
+### Main shape
 
+1.  3D print templates
+
+    1. EndCap\_holePunch
+    2. EndCap\_sensorHoles
+
+    ![](<../.gitbook/assets/Screenshot from 2024-08-01 17-09-33.png>)
+2.  Punch 6 mounting holes
+
+    ![](../.gitbook/assets/PXL\_20240715\_152238180.jpg)![](../.gitbook/assets/PXL\_20240715\_152443422.jpg)
+3.  Drill mounting holes
+
+    ![](../.gitbook/assets/PXL\_20240715\_153038017.jpg)![](../.gitbook/assets/PXL\_20240715\_153213740.jpg)
+4.  Add template to mark outline
+
+    ![](../.gitbook/assets/PXL\_20240715\_153657840.jpg)![](../.gitbook/assets/PXL\_20240715\_153751269.jpg)![](../.gitbook/assets/PXL\_20240715\_154101431.jpg)
+5. Cut outline
+6. Debur mounting holes
+7. Sand and polish edges
+
+<figure><img src="../.gitbook/assets/PXL_20240716_092432860.jpg" alt=""><figcaption></figcaption></figure>
+
+### Sensors and Pressure relief valve modifications
+
+Use the same template for each version
+
+<div>
+
+<figure><img src="../.gitbook/assets/signal-2024-08-01-171500_003.jpeg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/signal-2024-08-01-171500_002.jpeg" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+* Sensor side&#x20;
+  * Punch 5 holes around the center
+  * Drill with 16 mm step drill
+  * Debur edges
+* Pressure relief side
+  * Punch 1 center hole
+  * Drill with 10mm drill
+  * Debur edges
 
 ## Tube cutting
 
