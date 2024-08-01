@@ -1,79 +1,170 @@
 #include <Arduino.h>
-#include <SD.h>
-#include <SPI.h>
-// #include "FS.h" // To be used for more complex file managing
+#include "reefie.h"
 
-#include "ap_config.h"
+Reefie reefie;
 
-// Global Variables
-File dataFile;
-String fileName;
-int fileIndex = 0;
+// Timer handle
+TimerHandle_t xOneShotTimer;
+bool timerTriggered = false;
 
-// Function Declarations
-// SD Card functions
-bool initializeSDCard();
-String generateFileName();
-void createNewFile(const String &name);
-void appendDataToFile(const String &name);
+TimerHandle_t xLoggingTimer;
+bool logTimerTriggered = false;
+
+void vLogTimerCallback(TimerHandle_t xTimer){
+  logTimerTriggered = true;
+}
+
+void vOneShotTimerCallback(TimerHandle_t xTimer){
+  timerTriggered = true;
+}
+
+void readAllData();
 
 void setup() {
-  // Start Serial USB logging
-  Serial.begin(SERIAL_BAUD_RATE);
 
-  // Initialize SD card and create new file
-  if (initializeSDCard()) {
-    fileName = generateFileName();
-    createNewFile(fileName);
+  xOneShotTimer = xTimerCreate("OneShotTimer", 
+                                pdMS_TO_TICKS(700),
+                                pdFALSE,
+                                NULL,
+                                vOneShotTimerCallback);
+
+  xLoggingTimer = xTimerCreate("OneShotTimer", 
+                                pdMS_TO_TICKS(LOGGING_DELAY),
+                                pdTRUE,
+                                NULL,
+                                vLogTimerCallback);
+
+  if(!reefie.begin()){ //Initialize I2C ,RTC, Fuel gauge, SD card, OLED
+    reefie.displaySDCardError();
+    reefie.deepSleepStart();
   }
+  Serial.println("I2C, OLED, RTC, Fuel gauge, SD card - Initialized");
+  reefie.setupLogFile(); //Create Folders and files for writing data.
+  reefie.displayUpdateInit();
+  Serial.println("Log files initialized");
+  
+  reefie.setupSensors(); // Initialize ADS1115, pressure sensor and EZO boards.
+  Serial.println("ADS1115, pressure sensor, EZO boards initialized");
+  reefie.state = STATE_INIT;
+  delay(2000);
+
+  reefie.displayEyesInit();
+  xTimerStart(xLoggingTimer, 0);
 }
+
 
 void loop() {
-  appendDataToFile(fileName);
-  delay(LOGGING_DELAY); // Wait for 5 seconds before next write
-}
 
-bool initializeSDCard() {
-  if (!SD.begin(SD_CS)) {
-    Serial.println("Card Mount Failed");
-    return false;
-  }
-  Serial.println("SD Card initialized.");
-  return true;
-}
 
-String generateFileName() {
-  String name;
-  while (true) {
-    name = "/data" + String(fileIndex) + ".csv";
-    if (!SD.exists(name)) {
+  switch (reefie.state)
+  {
+    case STATE_INIT:
+    {
+      //Reserved state to reinitialize after errors etc
+      reefie.state = STATE_READ_DATA;
       break;
     }
-    fileIndex++;
+    case STATE_READ_DATA:
+    {
+      readAllData();
+      
+      break;
+    }
+    case STATE_LOG_DATA:
+    {
+      reefie.printSensorData();
+      reefie.appendDataToFile(reefie.fileName);
+      reefie.state = STATE_WAITING;
+      reefie.displayData();
+      
+       // Wait for 5 seconds before next write
+      
+      break;
+    }
+    case STATE_WAITING:
+    {
+      if(logTimerTriggered){
+        logTimerTriggered = false;
+        reefie.state = STATE_READ_DATA;
+        reefie.displayEyesCycleRandom();
+        reefie.displayData();
+      }
+      
+      break;
+    }
+    case STATE_ERROR:
+    {
+      break;
+    }
+    case STATE_TESTS:
+    {
+      
+      Serial.println("Tests");
+
+      break;
+    }
   }
-  return name;
+  delay(10);
 }
 
-void createNewFile(const String &name) {
-  dataFile = SD.open(name, FILE_WRITE);
-  if (!dataFile) {
-    Serial.println("Failed to create file");
-    return;
-  }
-  dataFile.println("Timestamp,Value"); // Write header to the new file
-  dataFile.close();
-  Serial.println("Created file: " + name);
-}
+void readAllData()
+{
+  switch (reefie.readStates)
+  {
+    case READ_STATE_INIT:
+    {
+      reefie.RTD.send_read_cmd();
+      timerTriggered = false;
+      xTimerChangePeriod(xOneShotTimer, pdMS_TO_TICKS(700), 0);
+      reefie.readStates = READ_STATE_READ_TEMP;
+      xTimerStart(xOneShotTimer, 0);
+      break;
+    }
+    case READ_STATE_READ_TEMP:
+    {
+      if(timerTriggered){
+        reefie.RTD.receive_read_cmd();
 
-void appendDataToFile(const String &name) {
-  dataFile = SD.open(name, FILE_APPEND);
-  if (dataFile) {
-    dataFile.print(millis());
-    dataFile.print(",");
-    dataFile.println(random(100)); // Example value to append
-    dataFile.close();
-    Serial.println("Data written to file: " + name);
-  } else {
-    Serial.println("Failed to open file for appending");
+        if ((reefie.RTD.get_error() == Ezo_board::SUCCESS) && (reefie.RTD.get_last_received_reading() > -1000.0)) {        //if the temperature reading has been received and it is valid
+          reefie.RTD_temp = reefie.RTD.get_last_received_reading();
+          reefie.EC.send_read_with_temp_comp(reefie.RTD_temp);                               //send readings from temp sensor to EC sensor
+          
+        } else {
+          reefie.RTDreadLoop();                                                                                      //if the temperature reading is invalid
+          reefie.EC.send_read_with_temp_comp(25.0);                                                          //send default temp = 25 deg C to EC sensor
+        }
+        
+        xTimerChangePeriod(xOneShotTimer, pdMS_TO_TICKS(1000), 0);
+        reefie.readStates = READ_STATE_READ_EC;
+        xTimerStart(xOneShotTimer, 0);
+        timerTriggered = false;
+
+      }
+      break;
+    }
+    case READ_STATE_READ_EC:
+    {
+      if(timerTriggered)
+      {
+        reefie.readStates = READ_STATE_READ_OTHER;
+        timerTriggered = false;
+        reefie.EC.receive_cmd(reefie.EC_data, 32);       //put the response into the buffer
+        reefie.parseEZOData();
+      }
+      break;
+    }
+    case READ_STATE_READ_OTHER:
+    {
+      reefie.readBattery();
+      reefie.readAnalogSensors();
+
+      if(reefie.pressure_state.state_current){
+        reefie.readPressureSensor();
+      }
+
+      reefie.readStates = READ_STATE_INIT;
+      reefie.state = STATE_LOG_DATA;
+      break;
+    }
   }
 }
