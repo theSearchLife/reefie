@@ -10,19 +10,55 @@ Slicing done with PrusaSlicer [https://www.prusa3d.com/page/prusaslicer\_424/](h
 
 ### Internal components
 
-<figure><img src="../.gitbook/assets/Screenshot from 2024-06-26 13-15-56.png" alt=""><figcaption><p>Orientation</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/Screenshot from 2024-08-01 09-39-46.png" alt=""><figcaption><p>Orientation</p></figcaption></figure>
 
 1. ConnectingRingTop
 2. ConnectingRingBottom
 3. VD\_holder
-4. BatteryHolderV2
-5. SensorStackAttachment
+4. BatteryHolder\_v004
+5. ReedSwitchHolder
 
-* Filament - PETG
+* Material - PETG
 * Default settings for
   * 0.2mm speed
   * Generic PETG
 * Infill - 100%
+
+<div>
+
+<figure><img src="../.gitbook/assets/Screenshot from 2024-08-01 09-41-25.png" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/Screenshot from 2024-08-01 09-41-12.png" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/Screenshot from 2024-08-01 09-41-06.png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+1. SensorStackAttachment
+2. Display\_holder\_1.3
+
+* Material - PETG
+* Default settings for
+  * 0.2mm speed
+  * Generic PETG
+* Infill - 100%
+* Add smart fill support as shown in images
+
+<figure><img src="../.gitbook/assets/Screenshot from 2024-08-01 10-09-46.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="danger" %}
+Cable clamp inner diameter needs to be adjusted to each individual cable size before exporting STL.
+{% endhint %}
+
+* Filename: 5x **o-ring-protection** and 10x **CableGland\_cableclamp**
+* Material: PETG
+* Default settings for 0.2
+* Infill - 100%
+* Perimeter - 4
 
 ### External components
 
@@ -38,20 +74,63 @@ Slicing done with PrusaSlicer [https://www.prusa3d.com/page/prusaslicer\_424/](h
 
 <figure><img src="../.gitbook/assets/Screenshot from 2024-07-11 14-32-55.png" alt=""><figcaption></figcaption></figure>
 
-* **Clamp\_top** and **Clamp\_bottom**
-  * Filament - PETG
+* 2x **Clamp\_top** and 2x **Clamp\_bottom**
+  * Material: PETG
   * Default settings for
     * 0.2mm speed
-    * Generic PETG
   * Infill - 100%
 
+<figure><img src="../.gitbook/assets/Screenshot from 2024-08-01 10-03-59.png" alt=""><figcaption></figcaption></figure>
 
+* Filename: knob
+* Material: PETG
+* Default settings for 0.2
+* Infill - 100%
+* Perimeter - 4
+* Brim (optional)
+
+<figure><img src="../.gitbook/assets/Screenshot from 2024-08-01 10-06-40.png" alt=""><figcaption></figcaption></figure>
+
+* Filename: SensorCover
+* Material: PETG
+* Default settings for 0.2
+* Infill - 100%
+* Perimeter - 4
+
+<figure><img src="../.gitbook/assets/Screenshot from 2024-08-01 10-07-12.png" alt=""><figcaption></figcaption></figure>
+
+* Filename: SensorMountingPlate
+* Material: PETG
+* Default settings for 0.2
+* Infill - 100%
+* Perimeter - 4
+
+### Sealing Flanges
+
+<figure><img src="../.gitbook/assets/Screenshot from 2024-08-01 09-45-55.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="danger" %}
+Before exporting STL,  measure inside tube diameter and adjust spreadsheet value for flange\_from\_tube to be around 0.6mm smaller than inner diameter. Default inner diameter value is 94mm. flange\_from\_tube value is to compensate from actual tolerances. \
+Example, if real inner diamter is 95mm, make flange\_from\_tube to 0.2mm, if real inner diameter is 93mm, make flange from tube -0.8mm.&#x20;
+{% endhint %}
+
+* Material: PC blend (natural color)
+* Default settings for 0.2 Layer height
+  * Perimeter - 6
+  * Infill - 100%
+  * Brim
+    * Width - 20mm
+    * Type - Outer and inner brim
 
 ## Post-processing
 
 ### Heat inserts
 
 ### Coating
+
+
+
+## Lids cutting
 
 
 
