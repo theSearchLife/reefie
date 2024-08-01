@@ -134,11 +134,11 @@ Example, if real inner diamter is 95mm, make flange\_from\_tube to 0.2mm, if rea
 
 <div>
 
-<figure><img src="../.gitbook/assets/Screenshot from 2024-08-01 17-00-10.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Screenshot from 2024-08-01 20-58-58.png" alt="" width="375"><figcaption></figcaption></figure>
 
  
 
-<figure><img src="../.gitbook/assets/Screenshot from 2024-08-01 17-00-07.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Screenshot from 2024-08-01 20-58-06.png" alt="" width="375"><figcaption></figcaption></figure>
 
 </div>
 
@@ -150,8 +150,11 @@ Example, if real inner diamter is 95mm, make flange\_from\_tube to 0.2mm, if rea
 * Dual color
   * Black external
   * White text and arrows
+* Support enforcers
+  * On corners
+  * Under each letter
 
-<figure><img src="../.gitbook/assets/Screenshot from 2024-08-01 17-02-51.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Screenshot from 2024-08-01 21-00-06.png" alt=""><figcaption></figcaption></figure>
 
 * Filename: **Switchslider\_withText**
 * Material: PETG
@@ -160,7 +163,8 @@ Example, if real inner diamter is 95mm, make flange\_from\_tube to 0.2mm, if rea
 * Perimeter - 4
 * Dual color
   * White main color
-  * Black text
+  * Black text ON
+  * Black background OFF and inside letter O
 
 
 
@@ -197,7 +201,7 @@ All heatinserts are for M3, insert height is 5.7mm.
   * ![](../.gitbook/assets/PXL\_20240801\_120057983.jpg)
 * SwitchHolder and SwitchHolder\_mirror
   * 2x top
-  * ![](../.gitbook/assets/signal-2024-08-01-183218\_002.jpeg)
+  * ![](<../.gitbook/assets/signal-2024-08-01-183218\_002 (1).jpeg>)
 
 
 

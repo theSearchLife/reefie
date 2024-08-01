@@ -4,7 +4,7 @@ description: Preparation of sensors
 
 # Sensors
 
-## Pressure
+ressure
 
 <details>
 
@@ -147,19 +147,72 @@ description: Preparation of sensors
 
 ## Temperature
 
-### PCB assembly
+### Assemble EZO™ Carrier Board
+
+<div>
+
+<figure><img src="../.gitbook/assets/PXL_20240530_123209979 (2).jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240530_123338038 (2).jpg" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+<div>
+
+<figure><img src="../.gitbook/assets/PXL_20240530_123438771 (2).jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240530_123451866 (1).jpg" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+<figure><img src="../.gitbook/assets/PXL_20240530_123528584 (1).jpg" alt=""><figcaption></figcaption></figure>
 
 ### EZOboard I2C mode selection
 
+{% hint style="warning" %}
+Must change communication mode to I2c
+{% endhint %}
+
+It can be done easily buy connecting pins to the power source using jumper wires.\
+Also, guide in here&#x20;
+
+{% embed url="https://www.instructables.com/UART-AND-I2C-MODE-SWITCHING-FOR-ATLAS-SCIENTIFIC-E/" %}
+
+<figure><img src="../.gitbook/assets/Screenshot from 2024-08-01 19-09-56.png" alt=""><figcaption></figcaption></figure>
+
 ### Calibration
+
+Using one of the Demos example send calibration command with known temperature
+
+Best with boiling water at sea level for 100 degrees C
+
+{% embed url="https://github.com/Atlas-Scientific/Ezo_I2c_lib/tree/master/Examples/I2c_lib_examples" %}
+
+> **i2c\_scan\_and\_comms\_example:** scans the I2C line for an ezo device (lowest address thats on the line) and lets you send commands to it using the serial terminal. Use the "ADDR" command to change that devices' address.
+>
+> **iot\_cmd\_sample\_code:** large example that demonstrates polling 3 devices for readings and also lets you send commands to any of them from the serial terminal. Use the "HELP" command for more details
+
+<figure><img src="../.gitbook/assets/Screenshot from 2024-08-01 19-55-03.png" alt=""><figcaption></figcaption></figure>
 
 ## Dissolved Oxygen
 
+### All electrolyte solution
 
+[https://files.atlas-scientific.com/Mini\_DO\_probe.pdf](https://files.atlas-scientific.com/Mini\_DO\_probe.pdf)
+
+### Calibration
+
+Enter value into the config file
 
 ## Conductivity
 
+Change mode ot to I2C
 
+[https://app.gitbook.com/o/KlzWKMnQCZv2f1qTGy6a/s/MyuLwdX8rMZL2MVzye3m/\~/changes/28/assembly-instructions/page-1#ezoboard-i2c-mode-selection](page-1.md#ezoboard-i2c-mode-selection)
 
 
 
