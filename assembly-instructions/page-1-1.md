@@ -176,20 +176,28 @@ Example, if real inner diamter is 95mm, make flange\_from\_tube to 0.2mm, if rea
 
 ### Heat inserts
 
-Parts tha trequire heat inserts
+Parts that require heat inserts
+
+All heatinserts are for M3, insert height is 5.7mm.
 
 * 2xFlangeSeal\_Open
   * 6x top
   * 6x bottom
+  * ![](../.gitbook/assets/PXL\_20240801\_112006341.jpg)![](../.gitbook/assets/PXL\_20240801\_112003674.jpg)
 * 2xClamp bottom
   * 4x sides, insert from the bottom
   * 2x on 45degree angle, insert from outside
+  * ![](../.gitbook/assets/PXL\_20240801\_114310070.jpg)![](../.gitbook/assets/PXL\_20240801\_114324629.jpg)
 * 2xClamp top
   * 3x top
   * 2x on 45degree angle, insert from outside
+  * ![](../.gitbook/assets/PXL\_20240801\_115316935.jpg)
 * Sensor mounting plate
   * 4x sides
-*
+  * ![](../.gitbook/assets/PXL\_20240801\_120057983.jpg)
+* SwitchHolder and SwitchHolder\_mirror
+  * 2x top
+  * ![](../.gitbook/assets/signal-2024-08-01-183218\_002.jpeg)
 
 
 
