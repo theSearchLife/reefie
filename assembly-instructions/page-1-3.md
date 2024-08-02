@@ -83,7 +83,22 @@
 
 </div>
 
+1. Connect 2x EZOboards to Qwiic adapters with W4, W5 custom cables
+2. Connect I2C interface using qwiic connectors in this order:
+   1. Pressure sensor qwiic
+   2. ADS1115
+   3. Qwiic adapter for EC
+   4. Qwiic adapter for RTD
 
+<div>
+
+<figure><img src="../.gitbook/assets/signal-2024-08-02-185413_002.jpeg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/signal-2024-08-02-185413_003.jpeg" alt=""><figcaption></figcaption></figure>
+
+</div>
 
 
 
