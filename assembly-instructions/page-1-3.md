@@ -43,3 +43,65 @@
 </div>
 
 <figure><img src="../.gitbook/assets/PXL_20240712_064541162.jpg" alt=""><figcaption></figcaption></figure>
+
+### Bottom ring
+
+1. Install 2x M2.5x6mm Nylon standoffs on the ring
+2. Add ADS1115 and fix it with bolts
+3. Slide in 2x Qwiic adapter boards
+4. Pre assemle 2x M3x10 mounting screws to SensorAttachmentHolder
+5. Install SensorAttachmentHolder to the bottom ring
+6. Slide in Qwiic adapter board to the SensorAttachmentHolder
+
+<div>
+
+<figure><img src="../.gitbook/assets/PXL_20240712_065338825.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240712_065429225.jpg" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+<div>
+
+<figure><img src="../.gitbook/assets/PXL_20240712_065532363.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240712_070009734.jpg" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+<div>
+
+<figure><img src="../.gitbook/assets/PXL_20240712_070223336.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240712_070658466.jpg" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+###
+
+###
+
+### Top Ring
+
+
+
+
+
+
+
