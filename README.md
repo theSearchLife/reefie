@@ -23,7 +23,7 @@ BOM -&#x20;
 
 Hardware design done in FreeCAD 0.21.2 with Assembly4 workbench  for assembly. [https://github.com/theSearchLife/reefie/tree/main/hardware](https://github.com/theSearchLife/reefie/tree/main/hardware)
 
-All files for 3D printing at [https://github.com/theSearchLife/reefie/tree/main/hardware](https://github.com/theSearchLife/reefie/tree/main/hardware) folder.
+All files for 3D printing at [https://github.com/theSearchLife/reefie/tree/main/hardware/3D\_printing](https://github.com/theSearchLife/reefie/tree/main/hardware/3D\_printing) folder or can be exported from FreeCAD file.
 
 Electronics wiring schematic in KiCAD 7.0 [https://github.com/theSearchLife/reefie/tree/main/hardware](https://github.com/theSearchLife/reefie/tree/main/hardware)
 
