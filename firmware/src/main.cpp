@@ -40,6 +40,20 @@ void setup() {
   }
   Serial.println("I2C, OLED, RTC, Fuel gauge, SD card - Initialized");
   reefie.setupLogFile(); //Create Folders and files for writing data.
+  reefie.readConfigFile();
+
+
+  xLoggingTimer = xTimerCreate("OneShotTimer", 
+                                pdMS_TO_TICKS(reefie.logging_delay_config),
+                                pdTRUE,
+                                NULL,
+                                vLogTimerCallback);
+
+  // We can set an interrupt to alert when the battery SoC gets too low.
+  // We can alert at anywhere between 1% - 32%:
+  reefie.lipo.setThreshold(reefie.battery_alarm_th_config); // Set alert threshold to 20%.
+  Serial.print("Battery alarm Threshold set to: ");Serial.print(reefie.battery_alarm_th_config);Serial.println("%");
+
   reefie.displayUpdateInit();
   Serial.println("Log files initialized");
   

@@ -62,6 +62,8 @@ public:
     void displayEyesCycleRandom();
     void displayUpdateInit();
 
+    void readConfigFile();
+
     bool RTDreadLoop();
 
     int16_t turbidity_adc;
@@ -117,6 +119,11 @@ public:
 
     U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2_l; //Full Buffer mode
     U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2_r; //Full Buffer mode
+
+    int battery_alarm_th_config;
+    uint32_t logging_delay_config;
+    float baseline_altitude_config;
+    float do_calibration_config;
     
 private:
     File dataFile;
@@ -130,6 +137,8 @@ private:
     String generateFileName();
     void createNewFile(const String &name);
     void writeHeader(const String &name);
+    void createDefaultConfigFile(const char* configFileName);
+    void parseConfigLine(String line);
     void voltageToTurbidity(float* voltage, float* turbidity);
     float doSaturation(float calibration, float reading);
     double sealevel(double P, double A);

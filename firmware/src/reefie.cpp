@@ -110,10 +110,7 @@ bool Reefie::initFuelGauge(){
     // Quick start restarts the MAX17043 in hopes of getting a more accurate
     // guess for the SOC.
     lipo.quickStart();
-    // We can set an interrupt to alert when the battery SoC gets too low.
-    // We can alert at anywhere between 1% - 32%:
-    lipo.setThreshold(BATTERY_ALARM_TH); // Set alert threshold to 20%.
-    Serial.print("Battery alarm Threshold set to: ");Serial.print(BATTERY_ALARM_TH);Serial.println("%");
+
     return true;
   }
 }
@@ -269,6 +266,68 @@ void Reefie::createNewFile(const String &name) {
   Serial.println("Created file: " + name);
 }
 
+void Reefie::readConfigFile(){
+  const char* configFileName = "/config.txt";
+  File configFile;
+  if (SD.exists(configFileName)) {
+    configFile = SD.open(configFileName, FILE_READ);
+    if (configFile) {
+      String line;
+      while (configFile.available()) {
+        line = configFile.readStringUntil('\n');
+        parseConfigLine(line);
+      }
+      configFile.close();
+    } else {
+      Serial.println("Failed to open config file for reading");
+    }
+  } else {
+    Serial.println("Config file does not exist. Creating with default values.");
+    createDefaultConfigFile(configFileName);
+  }
+
+}
+
+void Reefie::parseConfigLine(String line) {
+  line.trim();
+  int delimiterIndex = line.indexOf('=');
+  if (delimiterIndex > 0) {
+    String key = line.substring(0, delimiterIndex);
+    String value = line.substring(delimiterIndex + 1);
+    key.trim();
+    value.trim();
+
+    if (key == "LOGGING_DELAY") {
+      logging_delay_config = value.toInt();
+    } else if (key == "BATTERY_ALARM_TH") {
+      battery_alarm_th_config = value.toInt();
+    } else if (key == "BASELINE_ALTITUDE") {
+      baseline_altitude_config = value.toFloat();
+    } else if (key == "DO_CALIBRATION") {
+      do_calibration_config = value.toFloat();
+    }
+    Serial.println(key + " = " + value);
+  }
+}
+
+void Reefie::createDefaultConfigFile(const char* configFileName) {
+  File configFile = SD.open(configFileName, FILE_WRITE);
+  if (configFile) {
+    configFile.printf("LOGGING_DELAY=%d\n", LOGGING_DELAY);
+    configFile.printf("BATTERY_ALARM_TH=%d\n", BATTERY_ALARM_TH);
+    configFile.printf("BASELINE_ALTITUDE=%f\n", BASELINE_ALTITUDE);
+    configFile.printf("DO_CALIBRATION=%.6f\n", DO_CALIBRATION);
+    configFile.close();
+    Serial.println("Default config file created.");
+    logging_delay_config = LOGGING_DELAY;
+    battery_alarm_th_config = BATTERY_ALARM_TH;
+    baseline_altitude_config = BASELINE_ALTITUDE;
+    do_calibration_config = DO_CALIBRATION;
+  } else {
+    Serial.println("Failed to create config file");
+  }
+}
+
 void Reefie::writeHeader(const String &name)
 {
   dataFile = SD.open(name, FILE_APPEND);
@@ -373,7 +432,7 @@ void Reefie::readAnalogSensors()
   ads.setGain(GAIN_ONE);        // 1x gain   +/- 4.096V  1 bit = 2mV      0.125mV
   do_adc = ads.readADC_SingleEnded(DO_PIN);
   do_volts = ads.computeVolts(do_adc);
-  do_saturation = doSaturation(DO_CALIBRATION, do_volts);
+  do_saturation = doSaturation(do_calibration_config, do_volts);
 }
 
 void Reefie::voltageToTurbidity(float* voltage, float* turbidity){
@@ -400,7 +459,7 @@ void Reefie::readPressureSensor()
   // Let's do something interesting with our data.
   // Convert abs pressure with the help of altitude into relative pressure
   // This is used in Weather stations.
-  pressure_relative = sealevel(pressure_abs, BASELINE_ALTITUDE);
+  pressure_relative = sealevel(pressure_abs, baseline_altitude_config);
   // Taking our baseline pressure at the beginning we can find an approximate
   // change in altitude based on the differences in pressure.
   altitude_delta = altitude(pressure_abs , pressure_baseline);

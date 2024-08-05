@@ -7,11 +7,11 @@
 #define SERIAL_BAUD_RATE    115200
 #define BATTERY_ALARM_TH    20 //%
 #define TIMEZONE_OFFSET     -7200 //In seconds to -2hours
-#define BASELINE_ALTITUDE   384.0
-
+// #define BASELINE_ALTITUDE   384.0
+const float BASELINE_ALTITUDE = 384.0;
 //Calibration
-#define DO_CALIBRATION      0.583250
-
+// #define DO_CALIBRATION      0.583250
+const float DO_CALIBRATION = 0.583250;
 //Pinout
 #define SD_SCK  18
 #define SD_MISO 19
@@ -47,6 +47,6 @@
 #define BRIGHTNESS  25
 
 //RTD
-#define RTD_READ_ATTEMPTS   10
+#define RTD_READ_ATTEMPTS   20
 
 #endif //AP_CONFIG_H
