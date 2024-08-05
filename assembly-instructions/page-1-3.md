@@ -1,8 +1,6 @@
-# Final assembly
+# Inside Electronics
 
-## Inside electronics
-
-### Sensor stack
+## Sensor stack
 
 1. Add EZOisolated EC board to SensorStackHolder
 2. Mount 4x 12mm standoffs
@@ -44,7 +42,7 @@
 
 <figure><img src="../.gitbook/assets/PXL_20240712_064541162.jpg" alt=""><figcaption></figcaption></figure>
 
-### Bottom ring
+## Bottom ring
 
 1. Install 2x M2.5x6mm Nylon standoffs on the ring
 2. Add ADS1115 and fix it with bolts
@@ -116,7 +114,7 @@
 
 </div>
 
-### Battery holder
+## Battery holder
 
 1. Install 4x M3 20mm standoffs on the sides
 2. Install 2x M3 6mm standoffs for ESP32
@@ -190,7 +188,7 @@
 
 </div>
 
-### OLED displays
+## OLED displays
 
 1. Install OLED displays into the holder
    1. 8x M2.5 6mm screws with 8x nuts
@@ -222,7 +220,7 @@
 
 <figure><img src="../.gitbook/assets/PXL_20240805_065402893.jpg" alt=""><figcaption></figcaption></figure>
 
-### Top Ring
+## Top Ring
 
 1. Install RTC on the top ring
    1. 2x 6mm standoffs
@@ -287,7 +285,7 @@
 
 </div>
 
-### Assembling both rings and wiring
+## Assembling rings
 
 1. Install Top ring on bottom ring
    1. Fasten with 3x M3x10 screw from the bottom of the bottom ring
