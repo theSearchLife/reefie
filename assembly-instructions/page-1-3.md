@@ -116,21 +116,145 @@
 
 </div>
 
+### Battery holder
 
+1. Install 4x M3 20mm standoffs on the sides
+2. Install 2x M3 6mm standoffs for ESP32
+3. Install M2.5 Nylon screws and standoffs
+4. Assemble voltage converter
+5. Install battery using velco or zip ties
+6. Install ESP32
+7. Connect 3.3V cable to power converter
+8. Install power switch, tighten well
+9. Connect power input to ESP32
 
+<div>
 
+<figure><img src="../.gitbook/assets/PXL_20240802_190056128.jpg" alt=""><figcaption></figcaption></figure>
 
+ 
 
+<figure><img src="../.gitbook/assets/PXL_20240802_190208922.jpg" alt=""><figcaption></figcaption></figure>
 
-###
+</div>
 
-###
+<div>
+
+<figure><img src="../.gitbook/assets/PXL_20240802_190328513.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240802_190628719.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240802_190643900.jpg" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+<div>
+
+<figure><img src="../.gitbook/assets/PXL_20240802_190954938.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240802_190958216.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240802_191046394.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240802_191041232.jpg" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+<div>
+
+<figure><img src="../.gitbook/assets/PXL_20240802_191203605.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240802_191213451.jpg" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+<div>
+
+<figure><img src="../.gitbook/assets/PXL_20240805_065759743.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240805_071133508.jpg" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+### OLED displays
+
+1. Install OLED displays into the holder
+   1. 8x M2.5 6mm screws with 8x nuts
+   2. Ensure screen position is correct
+      1. Looking from the back
+         1. 0x7A is left
+         2. 0x78 is righ
+2. Install 20mm standoff
+
+<div>
+
+<figure><img src="../.gitbook/assets/PXL_20240805_064701169.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240805_064741979.jpg" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+<div>
+
+<figure><img src="../.gitbook/assets/PXL_20240805_065306973.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240805_065259216.jpg" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+<figure><img src="../.gitbook/assets/PXL_20240805_065402893.jpg" alt=""><figcaption></figcaption></figure>
 
 ### Top Ring
 
+1. Install RTC on the top ring
+   1. 2x 6mm standoffs
+   2. 2x M3x6mm screws
+2. Install voltage divider 2x6mm screws
+3. Connect battery holder to top ring, 2x M3x10mm screws
+4. Connect Voltage connector (note orientation)
+5. Connect Qwiic connector from RTC to ESP32, 50mm qwiic cable
+6. Assemble reed switch inside it's holder. Using square nut and M3x10 screw
+7. Install reed switch holder to the top ring
 
+<div>
 
+<figure><img src="../.gitbook/assets/PXL_20240805_071431380.jpg" alt=""><figcaption></figcaption></figure>
 
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240805_071519699.jpg" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+<figure><img src="../.gitbook/assets/PXL_20240805_071928394.jpg" alt=""><figcaption></figcaption></figure>
+
+<div>
+
+<figure><img src="../.gitbook/assets/PXL_20240805_072033407.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240805_072126675 (1).jpg" alt=""><figcaption></figcaption></figure>
+
+</div>
 
 
 
