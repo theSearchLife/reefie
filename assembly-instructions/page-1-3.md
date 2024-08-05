@@ -232,7 +232,10 @@
 4. Connect Voltage connector (note orientation)
 5. Connect Qwiic connector from RTC to ESP32, 50mm qwiic cable
 6. Assemble reed switch inside it's holder. Using square nut and M3x10 screw
-7. Install reed switch holder to the top ring
+7. Install reed switch holder to the top ring 2x M3x10&#x20;
+8. Connect OLED qwiic cable to RTC'
+9. Install OLED display holder
+10. Connect both displays
 
 <div>
 
@@ -255,6 +258,77 @@
 <figure><img src="../.gitbook/assets/PXL_20240805_072126675 (1).jpg" alt=""><figcaption></figcaption></figure>
 
 </div>
+
+<div>
+
+<figure><img src="../.gitbook/assets/PXL_20240805_070531167.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240805_070702018.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240805_072307757.jpg" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+<div>
+
+<figure><img src="../.gitbook/assets/PXL_20240805_072341634.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240805_072508435.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240805_072543139.jpg" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+### Assembling both rings and wiring
+
+1. Install Top ring on bottom ring
+   1. Fasten with 3x M3x10 screw from the bottom of the bottom ring
+2. Install connector to ADS1115 note the orientation
+3. Connect dissolved oxygen cable to the breakout, note orientation
+4. Connect turbidity cable to the turbidity breakout board
+5. Connect OLED display Qwiic cable to qwiic adapter for RTD
+
+<div>
+
+<figure><img src="../.gitbook/assets/PXL_20240805_072829594.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240805_072832062.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240805_072833803.jpg" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+<div>
+
+<figure><img src="../.gitbook/assets/PXL_20240805_072839666.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240805_072930581.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240805_073022830.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240805_073040945.jpg" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+
 
 
 
