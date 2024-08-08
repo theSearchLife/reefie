@@ -113,17 +113,44 @@
 
 ## Flanges
 
-Install cable gland
+### Install cable glands
 
-Install Pressure relief valve
+Flange colored black indicates the starting point, going clock wise. Surface with more deformities should be on the top. Order for installation:
 
-Install aluminium lids&#x20;
+1. RTD temp
+2. Pressure
+3. EC
+4. Turb
+5. OD
 
-Mount electroncis to sensor flange
+Steps:
 
-Connect electronics
+1. Clean the cable gland threads and O-ring so there are no dust particles.&#x20;
+2. Lightly grease up the o-ring
+3. Install the gland and tighten it. Would need 20 and 19mm Wrenches to hold.
 
-Install sensor to the Sensor holder
+
+
+### Install Pressure relief valve
+
+### Install aluminium lids&#x20;
+
+1. Lubricate the o-rings
+2. Lubricate the channel
+3. Insert all 6x  M3x10 screws but just to find the slot
+4. Tighten all screws in a star pattern
+   1. Don't over-tighten
+   2. There might seem that there is a gap, but 3D printed part has a slight bend at the edge. Also, the o-ring doesn't compresss completely.
+
+### Mount electronics to sensor flange
+
+
+
+
+
+### Connect electronics
+
+### Install sensor to the Sensor holder
 
 Install sensor flange, Ensure switch lines up
 
