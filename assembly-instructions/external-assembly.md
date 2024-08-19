@@ -125,13 +125,40 @@ Flange colored black indicates the starting point, going clock wise. Surface wit
 
 Steps:
 
-1. Clean the cable gland threads and O-ring so there are no dust particles.&#x20;
-2. Lightly grease up the o-ring
+1. Clean the cable gland threads&#x20;
+2. Add Sikaflex 291i sealant around the threads&#x20;
 3. Install the gland and tighten it. Would need 20 and 19mm Wrenches to hold.
+4. Clean up excess sealant&#x20;
+5. (optional) spray paint black for cleaner look
 
+<div>
 
+<figure><img src="../.gitbook/assets/signal-2024-08-19-092304.jpeg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/signal-2024-08-19-092708_002.jpeg" alt=""><figcaption></figcaption></figure>
+
+</div>
 
 ### Install Pressure relief valve
+
+Indepth instructions follow here [https://bluerobotics.com/learn/pressure-relief-valve-installation-and-usage/](https://bluerobotics.com/learn/pressure-relief-valve-installation-and-usage/)
+
+And for simpler vent [https://bluerobotics.com/learn/wte-vent-assembly-guide/](https://bluerobotics.com/learn/wte-vent-assembly-guide/)
+
+1. Lubricate the o-ring
+2. Install the pressure relief valve
+
+<div>
+
+<figure><img src="../.gitbook/assets/PXL_20240808_105318685.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240808_105315993.jpg" alt=""><figcaption></figcaption></figure>
+
+</div>
 
 ### Install aluminium lids&#x20;
 
@@ -141,6 +168,17 @@ Steps:
 4. Tighten all screws in a star pattern
    1. Don't over-tighten
    2. There might seem that there is a gap, but 3D printed part has a slight bend at the edge. Also, the o-ring doesn't compresss completely.
+5. Repeat for both sensors cable gland side and pressure relief side.
+
+<div>
+
+<figure><img src="../.gitbook/assets/PXL_20240808_104043840.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240808_105721070 (1).jpg" alt=""><figcaption></figcaption></figure>
+
+</div>
 
 ### Mount electronics to sensor flange
 
