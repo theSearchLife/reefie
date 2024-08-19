@@ -180,13 +180,34 @@ And for simpler vent [https://bluerobotics.com/learn/wte-vent-assembly-guide/](h
 
 </div>
 
-### Mount electronics to sensor flange
+### Install O-rings to Flanges
 
+1. Lubricate o-rings 90mm ID o-rings with grease
+2. Lubricate the channel
+3. Install on the sides
 
+<figure><img src="../.gitbook/assets/PXL_20240808_110040275.jpg" alt=""><figcaption></figcaption></figure>
 
+### Connecting Flange with Electronics
 
+1. Install 3x3x M3x20mm standoffs
+   1. Note position relating the flange lip
+2. Connect sensors&#x20;
+3. Connect standoffs with mounting ring with 3x M3x10mm screws
 
-### Connect electronics
+<div>
+
+<figure><img src="../.gitbook/assets/signal-2024-08-19-101114_002.jpeg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/signal-2024-08-19-101114_003.jpeg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/signal-2024-08-19-101114_004.jpeg" alt=""><figcaption></figcaption></figure>
+
+</div>
 
 ### Install sensor to the Sensor holder
 
