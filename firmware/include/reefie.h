@@ -11,7 +11,14 @@
 #include <Wire.h>    //include arduinos i2c library
 #include <SparkFun_MAX1704x_Fuel_Gauge_Arduino_Library.h> // Click here to get the library: http://librarymanager/All#SparkFun_MAX1704x_Fuel_Gauge_Arduino_Library
 #include "RTClib.h" // Date and time functions using a DS3231 RTC connected via I2C and Wire lib
+
+#ifdef MS5803_SENSOR
 #include <SparkFun_MS5803_I2C.h> // Click here to get the library: http://librarymanager/All#SparkFun_MS5803-14BA
+#endif
+#ifdef MS5837_SENSOR
+#include "MS5837.h"
+#endif
+
 #include <Adafruit_ADS1X15.h>
 #include <Ezo_i2c.h> //include the EZO I2C library from https://github.com/Atlas-Scientific/Ezo_I2c_lib
 #include <Ezo_i2c_util.h> //brings in common print statements
@@ -80,7 +87,13 @@ public:
     double battery_voltage; // Variable to keep track of LiPo voltage
     double battery_soc; // Variable to keep track of LiPo state-of-charge (SOC)
     bool battery_alert; // Variable to keep track of whether alert has been triggered.
+
+    #ifdef MS5837_SENSOR
+    MS5837 pressure_sensor;
+    #endif
+    #ifdef MS5803_SENSOR
     MS5803 pressure_sensor; // Instantiate the sensor using ADDRESS_HIGH
+    #endif
 
     Ezo_board EC; //= Ezo_board(100, "EC");      //create an EC circuit object who's address is 100 and name is "EC"
     Ezo_board RTD; //= Ezo_board(102, "RTD");    //create an RTD circuit object who's address is 102 and name is "RTD"
@@ -102,8 +115,13 @@ public:
     float SG_float;                 //float var used to hold the float value of the specific gravity.
     float RTD_temp;
 
-    float temperature_c, temperature_f;
+    float temperature_c;
+    #ifdef MS5803_SENSOR
     double pressure_abs, pressure_relative, altitude_delta, pressure_baseline;
+    #endif
+    #ifdef MS5837_SENSOR
+    float pressure_abs, depth;
+    #endif
 
     device_state_t pressure_state;
     device_state_t fuelgauge_state;
@@ -143,6 +161,7 @@ private:
     float doSaturation(float calibration, float reading);
     double sealevel(double P, double A);
     double altitude(double P, double P0);
+    float depth_calc(float pressure_mbar);
     String formatDateTime(DateTime dateTime);
     String formatDateTimeDisplay(DateTime dateTime);
 

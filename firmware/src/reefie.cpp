@@ -1,11 +1,11 @@
 #include "reefie.h"
 
 
-const int Reefie::numLog = 16;
+const int Reefie::numLog = 15;
 const String Reefie::dataNames[Reefie::numLog] = {
     "unix_timestamp", "human_timestamp", "temperature", "do_volt", "do_saturation", "turb_volt", 
     "turb_ntu", "conductivity", "tds", "salinity", "specific_gravity", 
-    "pressure_abs", "pressure_relative", "altitude_delta","battery_voltage","battery_soc"
+    "pressure_abs", "depth", "battery_voltage","battery_soc"
 };
 
 Reefie::Reefie()
@@ -13,7 +13,9 @@ Reefie::Reefie()
         battery_voltage(0),
         battery_soc(0),
         battery_alert(false),
+        #ifdef MS5803_SENSOR
         pressure_sensor(ADDRESS_HIGH),
+        #endif
         EC(Ezo_board(ADDR_EZO_EC, "EC")),
         RTD(Ezo_board(ADDR_EZO_RTD, "RTD")),
         state(STATE_INIT),
@@ -124,6 +126,7 @@ void Reefie::setupLogFile(){
 }
 
 bool Reefie::checkPressureSensor(TwoWire &wirePort) {
+  #ifdef MS5803_SENSOR
     // Begin communication with the sensor
     pressure_sensor.begin(Wire, 0x76); // Or, from v1.1.3, we can also do this
 
@@ -133,8 +136,11 @@ bool Reefie::checkPressureSensor(TwoWire &wirePort) {
     if (wirePort.endTransmission() != 0) {
         return false;
     }
+    #endif
+    #ifdef MS5837_SENSOR
+    if(!pressure_sensor.init()) return false; 
+    #endif
 
-    // Assuming coefficient should not be zero, adjust this check as needed
     return true;
 }
 
@@ -143,9 +149,17 @@ void Reefie::setupSensors(){
   // Begin communication with the sensor
     if(checkPressureSensor(Wire))
     {
+      #ifdef MS5803_SENSOR
       // pressure_sensor.begin(Wire, 0x76); // Or, from v1.1.3, we can also do this
       pressure_sensor.reset();
       pressure_baseline = pressure_sensor.getPressure(ADC_4096);
+      #endif
+
+      #ifdef MS5837_SENSOR
+      pressure_sensor.setModel(MS5837::MS5837_30BA);
+      pressure_sensor.setFluidDensity(997); // kg/m^3 (997 for freshwater, 1029 for seawater)
+      #endif
+
       pressure_state.state_current = true;
     }
     
@@ -383,14 +397,12 @@ void Reefie::printSensorData()
   Serial.print(SG);                       //this is the specific gravity point.
   Serial.print("  TempC = ");
   Serial.print(temperature_c);
-  Serial.print("  TempF = ");
-  Serial.print(temperature_f);
   Serial.print("  Pressure abs (mbar)= ");
   Serial.print(pressure_abs);
-  Serial.print("  Pressure rel (mbar)= ");
-  Serial.print(pressure_relative);
-  Serial.print("  Altitude change (m) = ");
-  Serial.print(altitude_delta);
+  // Serial.print("  Pressure rel (mbar)= ");
+  // Serial.print(pressure_relative);
+  // Serial.print("  Altitude change (m) = ");
+  // Serial.print(altitude_delta);
   Serial.print("  Battery Voltage (V) = ");
   Serial.print(battery_voltage);
   Serial.print("  Battery soc (%) = ");
@@ -448,21 +460,31 @@ float Reefie::doSaturation(float calibration, float reading)
 
 void Reefie::readPressureSensor()
 {
+  #ifdef MS5803_SENSOR
     // Read temperature from the sensor in deg C. This operation takes about
   temperature_c = pressure_sensor.getTemperature(CELSIUS, ADC_512);
-  // Read temperature from the sensor in deg F. Converting
-  // to Fahrenheit is not internal to the sensor.
-  // Additional math is done to convert a Celsius reading.
-  temperature_f = pressure_sensor.getTemperature(FAHRENHEIT, ADC_512);
   // Read pressure from the sensor in mbar.
   pressure_abs = pressure_sensor.getPressure(ADC_4096);
-  // Let's do something interesting with our data.
-  // Convert abs pressure with the help of altitude into relative pressure
-  // This is used in Weather stations.
-  pressure_relative = sealevel(pressure_abs, baseline_altitude_config);
-  // Taking our baseline pressure at the beginning we can find an approximate
-  // change in altitude based on the differences in pressure.
-  altitude_delta = altitude(pressure_abs , pressure_baseline);
+  depth = depth_calc(pressure_abs);
+  #endif
+
+  #ifdef MS5837_SENSOR
+  pressure_sensor.read();
+  temperature_c = pressure_sensor.temperature();
+  pressure_abs = pressure_sensor.pressure();
+  depth = pressure_sensor.depth();
+  #endif
+  // // Let's do something interesting with our data.
+  // // Convert abs pressure with the help of altitude into relative pressure
+  // // This is used in Weather stations.
+  // pressure_relative = sealevel(pressure_abs, baseline_altitude_config);
+  // // Taking our baseline pressure at the beginning we can find an approximate
+  // // change in altitude based on the differences in pressure.
+  // altitude_delta = altitude(pressure_abs , pressure_baseline);
+}
+
+float Reefie::depth_calc(float pressure_mbar){
+  return (pressure_mbar*100 -101325)/(1029*9.80665);
 }
 
 double Reefie::sealevel(double P, double A)
@@ -521,8 +543,8 @@ void Reefie::appendDataToFile(const String &name) {
     dataFile.print(SAL_float);dataFile.print(",");
     dataFile.print(SG_float);dataFile.print(",");
     dataFile.print(pressure_abs);dataFile.print(",");
-    dataFile.print(pressure_relative);dataFile.print(",");
-    dataFile.print(altitude_delta);dataFile.print(",");
+    dataFile.print(depth);dataFile.print(",");
+    // dataFile.print(altitude_delta);dataFile.print(",");
     dataFile.print(battery_voltage);dataFile.print(",");
     dataFile.print(battery_soc);
     dataFile.println(); // Example value to append
@@ -641,7 +663,7 @@ void Reefie::displayData()
   u8g2_r.print(pressure_abs);
   u8g2_r.setCursor(0, 51);
   u8g2_r.print(F("Depth: "));
-  u8g2_r.print(pressure_abs);
+  u8g2_r.print(depth);
   u8g2_r.setCursor(0, 64);
   u8g2_r.print(F("Battery: "));
   u8g2_r.print(battery_soc);

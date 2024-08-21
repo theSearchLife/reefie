@@ -28,11 +28,6 @@ void setup() {
                                 NULL,
                                 vOneShotTimerCallback);
 
-  xLoggingTimer = xTimerCreate("OneShotTimer", 
-                                pdMS_TO_TICKS(LOGGING_DELAY),
-                                pdTRUE,
-                                NULL,
-                                vLogTimerCallback);
 
   if(!reefie.begin()){ //Initialize I2C ,RTC, Fuel gauge, SD card, OLED
     reefie.displaySDCardError();

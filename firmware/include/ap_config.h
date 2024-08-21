@@ -12,6 +12,11 @@ const float BASELINE_ALTITUDE = 384.0;
 //Calibration
 // #define DO_CALIBRATION      0.583250
 const float DO_CALIBRATION = 0.583250;
+
+
+// #define MS5803_SENSOR
+#define MS5837_SENSOR
+
 //Pinout
 #define SD_SCK  18
 #define SD_MISO 19
