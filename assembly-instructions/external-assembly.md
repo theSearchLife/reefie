@@ -209,15 +209,30 @@ And for simpler vent [https://bluerobotics.com/learn/wte-vent-assembly-guide/](h
 
 </div>
 
-### Install sensor to the Sensor holder
+### Installing flanges
 
-Install sensor flange, Ensure switch lines up
+1. Install Sensor flange, ensure switch lines up
+   1. If no clamps are present. Install clamps with the switch
+2. Install sensors to sensor holder
+3. Fix sensor holder to clamps
+4. Install pressure relief valve flange
+5. Test power switch
 
-Mount sensor cover
+<div>
 
-Install pressure relief valve flange
+<figure><img src="../.gitbook/assets/PXL_20240819_080436777.jpg" alt=""><figcaption></figcaption></figure>
 
-Test power switch
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240819_142320881.jpg" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/PXL_20240819_142506256.jpg" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+
 
 
 

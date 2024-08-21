@@ -9,11 +9,7 @@
 3. USB permissions
 4. (Optional) if USB device not found remove "apt remove brltty"
 
-Depending on IDE need to manually configure to download mode\
-\
-Configure EZO probes to I2C mode
-
-Solder I2C address change on second OLED
+Depending on IDE need to manually configure to download mode, or press buttons on the board to change mode
 
 
 
