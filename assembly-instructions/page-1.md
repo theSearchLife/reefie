@@ -208,7 +208,24 @@ Enter value into the config file
 
 ## Conductivity
 
-Change mode to to I2C[https://app.gitbook.com/o/KlzWKMnQCZv2f1qTGy6a/s/MyuLwdX8rMZL2MVzye3m/\~/changes/28/assembly-instructions/page-1#ezoboard-i2c-mode-selection](page-1.md#ezoboard-i2c-mode-selection)
+#### Change mode to to I2C
+
+<figure><img src="../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+
+#### Calibration
+
+{% embed url="https://github.com/Atlas-Scientific/Ezo_I2c_lib/tree/master/Examples/I2c_lib_examples" %}
+
+> **i2c\_scan\_and\_comms\_example:** scans the I2C line for an ezo device (lowest address thats on the line) and lets you send commands to it using the serial terminal. Use the "ADDR" command to change that devices' address.
+>
+> **iot\_cmd\_sample\_code:** large example that demonstrates polling 3 devices for readings and also lets you send commands to any of them from the serial terminal. Use the "HELP" command for more details
+
+1. Add probe directly into a solution bag
+2. Send command&#x20;
+
+<figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+
+
 
 
 
