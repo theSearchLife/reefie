@@ -200,19 +200,15 @@ Best with boiling water at sea level for 100 degrees C
 
 ## Dissolved Oxygen
 
-### All electrolyte solution
-
 [https://files.atlas-scientific.com/Mini\_DO\_probe.pdf](https://files.atlas-scientific.com/Mini\_DO\_probe.pdf)
 
-### Calibration
+<figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
 
 Enter value into the config file
 
 ## Conductivity
 
-Change mode ot to I2C
-
-[https://app.gitbook.com/o/KlzWKMnQCZv2f1qTGy6a/s/MyuLwdX8rMZL2MVzye3m/\~/changes/28/assembly-instructions/page-1#ezoboard-i2c-mode-selection](page-1.md#ezoboard-i2c-mode-selection)
+Change mode to to I2C[https://app.gitbook.com/o/KlzWKMnQCZv2f1qTGy6a/s/MyuLwdX8rMZL2MVzye3m/\~/changes/28/assembly-instructions/page-1#ezoboard-i2c-mode-selection](page-1.md#ezoboard-i2c-mode-selection)
 
 
 
