@@ -31,6 +31,52 @@ Manual Vacuum pump MVM8900 \
 
 ### Sensors&#x20;
 
+#### Turbidity
+
+Clean with a soft sponge without damanging the plastic casing. Ensure there are no debris between two wings.
+
+#### Conductivity
+
+From [https://files.atlas-scientific.com/Mini\_EC\_K\_1.0\_probe.pdf](https://files.atlas-scientific.com/Mini\_EC\_K\_1.0\_probe.pdf)
+
+<div>
+
+<figure><img src=".gitbook/assets/Screenshot from 2024-08-21 17-17-52.png" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src=".gitbook/assets/Screenshot from 2024-08-21 17-18-17.png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+#### Dissolved oxygen
+
+From [https://files.atlas-scientific.com/Mini\_DO\_probe.pdf](https://files.atlas-scientific.com/Mini\_DO\_probe.pdf)
+
+<div>
+
+<figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src=".gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src=".gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src=".gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+
+
 ### O-rings
 
 {% hint style="danger" %}
