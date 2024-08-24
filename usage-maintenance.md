@@ -4,11 +4,18 @@
 
 ### Opening Closing
 
-Unscrew pressure valve plug (blue) or insert vacuum adapter plug (red) to open the vent so it's easier to remove or insert flanges
+* Unscrew pressure valve plug (blue) or insert vacuum adapter plug (red) to open the vent
+  * so it's easier to remove or insert flanges
 
+{% hint style="warning" %}
 Ensure inside of the tube is grease as well as the o-rings
 
 Areas cover with grease are clear out of any debris
+{% endhint %}
+
+{% hint style="danger" %}
+Ensure no vacuum adapter is inserted before submerging
+{% endhint %}
 
 ### Check sealing
 
@@ -19,13 +26,34 @@ Manual Vacuum pump MVM8900 \
 
 [https://bluerobotics.com/learn/using-the-vacuum-test-plug/](https://bluerobotics.com/learn/using-the-vacuum-test-plug/)
 
-
-
 ### SD card
+
+Remove or add SD card only when device is turned off.
 
 ### Config
 
+File in the root directory "config.txt"
 
+Default values
+
+```cpp
+LOGGING_DELAY=10000
+BATTERY_ALARM_TH=20
+BASELINE_ALTITUDE=384.0
+DO_CALIBRATION=0.583250
+```
+
+Logging delay - milliseconds value for logging data period
+
+Battery alarm threshold - battery percentage value to trigger an event (currently no event implemented). Battery value is displayed on OLED with other senor values as well as logged in the data files.
+
+Baseline altitude - To be used only MS5803 Sensor is being used to calculate relative pressure. Currently MS5837 is used.
+
+Dissolved oxygen calibration - Value of the sensor when sensor is outside water. Used as number for calculating % of dissolved oxygen.&#x20;
+
+{% hint style="info" %}
+DO\_CALIBRATION should be updated with the new value on location.
+{% endhint %}
 
 ## Maintenance
 
@@ -75,12 +103,10 @@ From [https://files.atlas-scientific.com/Mini\_DO\_probe.pdf](https://files.atla
 
 </div>
 
-
-
 ### O-rings
 
 {% hint style="danger" %}
-Use plastic tools, NOT steel or other hard tools, to remove the O-rings from the aluminum sealing flange. Hard tools can create scrapes that will compromise sealing ability.
+Use plastic tools, NOT steel or other hard tools, to remove the O-rings from the sealing flange. Hard tools can create scrapes that will compromise sealing ability.
 {% endhint %}
 
 {% hint style="danger" %}
