@@ -6,9 +6,7 @@ description: >-
 
 # Introduction
 
-{% hint style="info" %}
-Documentation view - [https://thesearch-life.gitbook.io/reefie](https://thesearch-life.gitbook.io/reefie)
-{% endhint %}
+**Documentation view** - [https://thesearch-life.gitbook.io/reefie](https://thesearch-life.gitbook.io/reefie)
 
 ## Description
 
