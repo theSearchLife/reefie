@@ -6,6 +6,12 @@ description: >-
 
 # Introduction
 
+{% hint style="info" %}
+Documentation view - [https://thesearch-life.gitbook.io/reefie](https://thesearch-life.gitbook.io/reefie)
+{% endhint %}
+
+## Description
+
 Battery powered device, encapsulated in watersealed enclosure to be able withstand 30m depths. It has sensory probes that capture and log data to SD card.
 
 Data captured:
