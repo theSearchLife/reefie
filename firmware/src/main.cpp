@@ -55,12 +55,13 @@ void setup() {
   Serial.println("Log files initialized");
   
   reefie.setupSensors(); // Initialize ADS1115, pressure sensor and EZO boards.
+  xTimerStart(xLoggingTimer, 0);
   Serial.println("ADS1115, pressure sensor, EZO boards initialized");
   reefie.state = STATE_INIT;
   delay(1000);
 
   // reefie.displayEyesInit();
-  xTimerStart(xLoggingTimer, 0);
+  
 }
 
 
