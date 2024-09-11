@@ -33,6 +33,8 @@ void setup() {
     reefie.displaySDCardError();
     reefie.deepSleepStart();
   }
+  reefie.displayEyesInit();
+
   Serial.println("I2C, OLED, RTC, Fuel gauge, SD card - Initialized");
   reefie.setupLogFile(); //Create Folders and files for writing data.
   reefie.readConfigFile();
@@ -55,9 +57,9 @@ void setup() {
   reefie.setupSensors(); // Initialize ADS1115, pressure sensor and EZO boards.
   Serial.println("ADS1115, pressure sensor, EZO boards initialized");
   reefie.state = STATE_INIT;
-  delay(2000);
+  delay(1000);
 
-  reefie.displayEyesInit();
+  // reefie.displayEyesInit();
   xTimerStart(xLoggingTimer, 0);
 }
 

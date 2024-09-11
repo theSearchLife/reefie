@@ -49,16 +49,16 @@ bool Reefie::begin(){
   u8g2_l.begin();
   u8g2_l.setFont(u8g2_font_ncenB10_tr);
   u8g2_r.setFont(u8g2_font_ncenB10_tr);
-  displayUpdateInit();
+  // displayUpdateInit();
   if(initFuelGauge()) fuelgauge_state.state_current = true;
-  displayUpdateInit();
+  // displayUpdateInit();
   if(initRTC()) rtc_state.state_current = true;
-  displayUpdateInit();
+  // displayUpdateInit();
 
   if(initSDCard())
   {
     sdCard_state.state_current = true;
-    displayUpdateInit();
+    // displayUpdateInit();
     return true;
   }else return false;
     
@@ -665,7 +665,7 @@ void Reefie::displayData()
   u8g2_r.print(F("Depth: "));
   u8g2_r.print(depth);
   u8g2_r.setCursor(0, 64);
-  u8g2_r.print(F("Battery: "));
+  u8g2_r.print(F("Batt: "));
   u8g2_r.print(battery_soc);
   u8g2_r.sendBuffer();
   
@@ -687,7 +687,7 @@ void Reefie::displayEyesInit()
   displayBothEyes(0,0,500);
   displayBothEyes(6,7,500);
   displayBothEyes(7,6,500);
-  displayBothEyes(5,5,1000);
+  displayBothEyes(5,5,500);
 }
 
 void Reefie::displayEyesCycle()
